@@ -5,8 +5,8 @@ const Profile = ({ nama, value }: { nama: string; value: number }) => {
   return (
     <View style={styles.profileContainer}>
       {/* <Text>Profile</Text> */}
-      <Text>{nama ? nama : ""}</Text>
-      <Text>{value ? value : ""}</Text>
+      <Text>{nama ? "Halo namaku, " + nama : ""}</Text>
+      <Text>{value ? "Umurku, " + value + " tahun" : ""}</Text>
     </View>
   );
 };
