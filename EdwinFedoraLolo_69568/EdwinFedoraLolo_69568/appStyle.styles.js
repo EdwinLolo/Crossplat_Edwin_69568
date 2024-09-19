@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: 999,
   },
   boldText: {
-    fontWeight: "bold",
+    fontSize: 16,
   },
   description: {
     width: "100%",
