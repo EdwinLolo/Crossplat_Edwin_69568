@@ -8,20 +8,20 @@ const emails = [
     id: "1",
     sender: "Promotions",
     subject: "AirAsia rewards — Redeem your points",
-    time: "99+ new",
+    time: "Sep 30",
     iconBackgroundColor: "#4caf50", // Warna hijau untuk ikon
   },
   {
     id: "2",
     sender: "Updates",
     subject: "Shopee — Kak, Kiriman Anda sedang dalam perjalanan",
-    time: "99+ new",
+    time: "Sep 30",
     iconBackgroundColor: "#ff9800", // Warna oranye untuk ikon
   },
   {
     id: "3",
     sender: "Google",
-    subject: "Security alert for edwinfedor",
+    subject: "Security alert for edwinfedora",
     time: "Sep 30",
     iconBackgroundColor: "#fbc02d", // Warna kuning untuk ikon
   },
@@ -31,13 +31,6 @@ const emails = [
     subject: "Your Google Play Order Receipt",
     time: "Sep 29",
     iconBackgroundColor: "#00bcd4", // Warna biru untuk ikon
-  },
-  {
-    id: "5",
-    sender: "Opera Software",
-    subject: "New sign-in to your Opera account",
-    time: "Sep 25",
-    iconBackgroundColor: "#757575", // Warna abu-abu untuk ikon
   },
   {
     id: "5",
@@ -135,12 +128,15 @@ const EmailItem = ({ item }) => (
 
 const Home = () => {
   return (
-    <FlatList
-      data={emails}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => <EmailItem item={item} />}
-      style={styles.container}
-    />
+    <>
+      <Text style={styles.primary}>Primary</Text>
+      <FlatList
+        data={emails}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => <EmailItem item={item} />}
+        style={styles.container}
+      />
+    </>
   );
 };
 
@@ -150,6 +146,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#121212", // Warna latar belakang gelap
     padding: 10,
+    paddingTop: 0, // Menghapus padding atas
   },
   emailItem: {
     flexDirection: "row",
@@ -191,6 +188,12 @@ const styles = StyleSheet.create({
     color: "#bbb", // Warna teks waktu
     fontSize: 12,
     marginBottom: 5,
+  },
+  primary: {
+    color: "#fff", // Warna teks untuk judul
+    fontSize: 16,
+    marginLeft: 15,
+    marginTop: 10,
   },
 });
 
