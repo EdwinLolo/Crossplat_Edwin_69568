@@ -4,7 +4,7 @@ import React from "react";
 const Meet = () => {
   return (
     <View>
-      <Text>Meet</Text>
+      <Text style={{ color: "#ffffff" }}>Meet</Text>
     </View>
   );
 };
