@@ -19,6 +19,7 @@ import { useEffect, useState } from "react";
 import HomeScreen from "./Pages/Home.js";
 import MeetScreen from "./Pages/Meet";
 import SplashScreen from "./Pages/Splash";
+import CustomDrawerContent from "./Pages/CustomDrawerContent.js"; // Import the custom drawer
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -34,11 +35,14 @@ const SearchBar = () => {
         <DrawerToggleButton tintColor="#fff" />
 
         {/* Search Input */}
-        <TextInput
+        {/* <TextInput
           style={styles.searchInput}
           placeholder="Search in mail"
           placeholderTextColor="#ccc"
-        />
+        /> */}
+        <View style={styles.centeredContainersearch}>
+          <Text style={styles.searchInput}>Search in mail</Text>
+        </View>
 
         {/* Profile Icon */}
         <View style={styles.profileIconContainer}>
@@ -162,8 +166,9 @@ export default function App() {
         <SafeAreaView style={styles.safeArea}>
           <NavigationContainer>
             <Drawer.Navigator
+              drawerContent={(props) => <CustomDrawerContent {...props} />} // Apply custom drawer content
               screenOptions={{
-                headerShown: false, // Menyembunyikan header pada drawer navigator
+                headerShown: false, // Hide header
               }}
             >
               <Drawer.Screen name="Main" component={BottomTabNavigator} />
@@ -210,16 +215,23 @@ const styles = StyleSheet.create({
     flex: 1, // Memastikan bahwa teks berada di tengah dan mengisi ruang yang tersisa
     alignItems: "center",
   },
+  centeredContainersearch: {
+    flex: 1, // Memastikan bahwa teks berada di tengah dan mengisi ruang yang tersisa
+    // alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+  },
   Meet: {
     fontSize: 18,
     color: "#fff",
   },
   searchInput: {
     flex: 1,
-    height: 40,
+    height: "100%",
     backgroundColor: "#444", // Warna background input
     borderRadius: 20,
     paddingLeft: 0,
+    paddingTop: 4,
     color: "#fff", // Warna teks putih
     marginLeft: 0, // Menambahkan margin kiri untuk memberi jarak antara hamburger dan input
     fontSize: 18, // Ukuran teks
