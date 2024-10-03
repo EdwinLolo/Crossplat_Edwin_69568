@@ -7,6 +7,8 @@ import {
   TextInput,
   SafeAreaView,
   Image,
+  Button,
+  TouchableOpacity,
 } from "react-native";
 import {
   createDrawerNavigator,
@@ -15,18 +17,29 @@ import {
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { FAB } from "react-native-paper";
 
 import HomeScreen from "./Pages/Home.js";
 import MeetScreen from "./Pages/Meet";
 import SplashScreen from "./Pages/Splash";
 import CustomDrawerContent from "./Pages/CustomDrawerContent.js"; // Import the custom drawer
+import SearchScreen from "./Pages/Search.js";
+
+import Microphone from "./assets/microphone_putih.png";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 // Komponen Search Bar yang baru
 const SearchBar = () => {
   const navigation = useNavigation(); // Mengambil instance navigation
+
+  const handlePress = () => {
+    // Navigate to the target screen, replace 'TargetScreen' with your actual screen name
+    navigation.navigate("Search");
+  };
 
   return (
     <View style={styles.searchBarContainer}>
@@ -41,7 +54,10 @@ const SearchBar = () => {
           placeholderTextColor="#ccc"
         /> */}
         <View style={styles.centeredContainersearch}>
-          <Text style={styles.searchInput}>Search in mail</Text>
+          {/* Custom Button with left-aligned text and navigation on press */}
+          <TouchableOpacity style={styles.searchInput} onPress={handlePress}>
+            <Text style={styles.buttonText}>Search in mail</Text>
+          </TouchableOpacity>
         </View>
 
         {/* Profile Icon */}
@@ -81,12 +97,51 @@ const SearchBarMeet = () => {
   );
 };
 
+const SearchBarSearch = () => {
+  const navigation = useNavigation(); // Mengambil instance navigation
+
+  return (
+    <View style={styles.searchBarContainerr}>
+      <View style={styles.searchBarContainers}>
+        {/* Drawer Hamburger Icon */}
+        {/* <DrawerToggleButton tintColor="#fff" /> */}
+        <Button title="Back" onPress={() => navigation.navigate("Home")} />
+
+        {/* Search Input */}
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search in mail"
+          placeholderTextColor="#ccc"
+        />
+        {/* <View style={styles.centeredContainersearch}>
+          <TouchableOpacity style={styles.searchInput} onPress={handlePress}>
+            <Text style={styles.buttonText}>Search in mail</Text>
+          </TouchableOpacity>
+        </View> */}
+
+        {/* Profile Icon */}
+        <View style={styles.profileIconContainer}>
+          {/* Anda bisa mengganti ini dengan Image jika memiliki gambar profil */}
+          <Image source={Microphone} style={styles.profileIconContainer} />
+
+          {/* <Text style={styles.profileText}>P</Text> */}
+        </View>
+      </View>
+    </View>
+  );
+};
+
 // Wrapper untuk layar Home dan Meet dengan Search Bar
 const HomeWithSearchBar = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#121212" }}>
       <SearchBar />
       <HomeScreen />
+      <FAB
+        icon="pencil"
+        style={styles.fab}
+        onPress={() => console.log("Pressed")}
+      />
     </SafeAreaView>
   );
 };
@@ -96,6 +151,20 @@ const MeetWithSearchBar = () => {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#121212" }}>
       <SearchBarMeet />
       <MeetScreen />
+    </SafeAreaView>
+  );
+};
+
+const SearchWithSearchBar = () => {
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#121212" }}>
+      <SearchBarSearch />
+      <SearchScreen />
+      <FAB
+        icon="pencil"
+        style={styles.fab}
+        onPress={() => console.log("Pressed")}
+      />
     </SafeAreaView>
   );
 };
@@ -173,6 +242,7 @@ export default function App() {
             >
               <Drawer.Screen name="Main" component={BottomTabNavigator} />
               <Drawer.Screen name="Meet" component={BottomTabNavigator} />
+              <Drawer.Screen name="Search" component={SearchWithSearchBar} />
             </Drawer.Navigator>
             <StatusBar style="light" />
           </NavigationContainer>
@@ -195,6 +265,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#2c2c2c", // Menjaga warna gelap pada SafeArea
     paddingTop: 50, // Menambahkan padding atas agar konten tidak terlalu atas
   },
+  searchBarContainers: {
+    flexDirection: "row",
+    alignItems: "center",
+    height: 53,
+    width: "100%",
+    padding: 10,
+    // borderRadius: 40,
+    backgroundColor: "#444", // Background search bar mirip dengan yang ada di gambar
+  },
   searchBarContainerss: {
     flexDirection: "row",
     alignItems: "center",
@@ -211,13 +290,18 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#000", // Background search bar mirip dengan yang ada di gambar
   },
+  searchBarContainerr: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between", // Membuat ikon di kiri dan kanan
+    backgroundColor: "#000", // Background search bar mirip dengan yang ada di gambar
+  },
   centeredContainer: {
     flex: 1, // Memastikan bahwa teks berada di tengah dan mengisi ruang yang tersisa
     alignItems: "center",
   },
   centeredContainersearch: {
-    flex: 1, // Memastikan bahwa teks berada di tengah dan mengisi ruang yang tersisa
-    // alignItems: "center",
+    flex: 1, // Ensures the text is centered and fills the available space
     justifyContent: "center",
     height: "100%",
   },
@@ -228,13 +312,15 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     height: "100%",
-    backgroundColor: "#444", // Warna background input
+    backgroundColor: "#444", // Background color of the button
     borderRadius: 20,
-    paddingLeft: 0,
-    paddingTop: 4,
-    color: "#fff", // Warna teks putih
-    marginLeft: 0, // Menambahkan margin kiri untuk memberi jarak antara hamburger dan input
-    fontSize: 18, // Ukuran teks
+    paddingLeft: 10, // Adjust padding to move the text to the left
+    justifyContent: "center", // Center the text vertically
+  },
+  buttonText: {
+    color: "#fff", // White text color
+    fontSize: 18, // Font size
+    textAlign: "left", // Align text to the left
   },
   profileIconContainer: {
     width: 40,
@@ -248,5 +334,11 @@ const styles = StyleSheet.create({
   profileText: {
     color: "#fff", // Warna teks putih untuk huruf profil
     fontSize: 18, // Ukuran teks
+  },
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 0,
+    bottom: 0,
   },
 });
