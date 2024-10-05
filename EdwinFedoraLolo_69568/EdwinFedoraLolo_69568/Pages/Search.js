@@ -113,22 +113,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   scrollView: {
-    maxHeight: 60, // Set a fixed height or maxHeight to avoid expanding too much
+    maxHeight: 50, // Set a fixed height or maxHeight to avoid expanding too much
   },
   containerButtonRow: {
     flexDirection: "row",
     backgroundColor: "#f9f9f9", // Light background for button row
   },
   button: {
-    borderRadius: 8, // Rounded corners
+    borderRadius: 8,
     borderColor: "#bbb", // Light border color
     borderWidth: 1,
     marginHorizontal: 10, // Increase spacing between buttons
     marginVertical: 5,
-    height: 50, // Adjust the height of the button
+    height: 40, // Adjust the height of the button
   },
   buttonContent: {
-    height: 50, // Adjust the height of the button
+    height: 40, // Adjust the height of the button
     paddingHorizontal: 5,
     justifyContent: "center",
   },
