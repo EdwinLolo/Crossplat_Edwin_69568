@@ -19,6 +19,7 @@ import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FAB } from "react-native-paper";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import HomeScreen from "./Pages/Home.js";
 import MeetScreen from "./Pages/Meet";
@@ -45,16 +46,10 @@ const SearchBar = () => {
     <View style={styles.searchBarContainer}>
       <View style={styles.searchBarContainerss}>
         {/* Drawer Hamburger Icon */}
-        <DrawerToggleButton tintColor="#fff" />
+        <DrawerToggleButton tintColor="#000" />
 
-        {/* Search Input */}
-        {/* <TextInput
-          style={styles.searchInput}
-          placeholder="Search in mail"
-          placeholderTextColor="#ccc"
-        /> */}
+        {/* Custom Button with left-aligned text and navigation on press */}
         <View style={styles.centeredContainersearch}>
-          {/* Custom Button with left-aligned text and navigation on press */}
           <TouchableOpacity style={styles.searchInput} onPress={handlePress}>
             <Text style={styles.buttonText}>Search in mail</Text>
           </TouchableOpacity>
@@ -62,14 +57,6 @@ const SearchBar = () => {
 
         {/* Profile Icon */}
         <View style={styles.profileIconContainer}>
-          {/* Anda bisa mengganti ini dengan Image jika memiliki gambar profil */}
-          {/* <Image
-          source={{
-            uri: "https://i.pinimg.com/originals/07/33/ba/0733ba760b29378474dea0fdbcb97107.png",
-          }}
-          style={styles.profileIconContainer}
-        /> */}
-
           <Text style={styles.profileText}>P</Text>
         </View>
       </View>
@@ -82,7 +69,7 @@ const SearchBarMeet = () => {
 
   return (
     <View style={styles.searchBarContainer}>
-      <DrawerToggleButton tintColor="#fff" />
+      <DrawerToggleButton tintColor="#000" />
 
       {/* Centered Meet Text */}
       <View style={styles.centeredContainer}>
@@ -104,27 +91,20 @@ const SearchBarSearch = () => {
     <View style={styles.searchBarContainerr}>
       <View style={styles.searchBarContainers}>
         {/* Drawer Hamburger Icon */}
-        {/* <DrawerToggleButton tintColor="#fff" /> */}
-        <Button title="Back" onPress={() => navigation.navigate("Home")} />
+        <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+          <Ionicons name="arrow-back" size={18} color="#000" />
+        </TouchableOpacity>
 
         {/* Search Input */}
         <TextInput
           style={styles.searchInput}
           placeholder="Search in mail"
-          placeholderTextColor="#ccc"
+          placeholderTextColor="#999"
         />
-        {/* <View style={styles.centeredContainersearch}>
-          <TouchableOpacity style={styles.searchInput} onPress={handlePress}>
-            <Text style={styles.buttonText}>Search in mail</Text>
-          </TouchableOpacity>
-        </View> */}
 
         {/* Profile Icon */}
-        <View style={styles.profileIconContainer}>
-          {/* Anda bisa mengganti ini dengan Image jika memiliki gambar profil */}
-          <Image source={Microphone} style={styles.profileIconContainer} />
-
-          {/* <Text style={styles.profileText}>P</Text> */}
+        <View style={styles.profileMicContainer}>
+          <Image source={Microphone} />
         </View>
       </View>
     </View>
@@ -134,7 +114,7 @@ const SearchBarSearch = () => {
 // Wrapper untuk layar Home dan Meet dengan Search Bar
 const HomeWithSearchBar = () => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#121212" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f2f2f2" }}>
       <SearchBar />
       <HomeScreen />
       <FAB
@@ -148,7 +128,7 @@ const HomeWithSearchBar = () => {
 
 const MeetWithSearchBar = () => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#121212" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f2f2f2" }}>
       <SearchBarMeet />
       <MeetScreen />
     </SafeAreaView>
@@ -157,7 +137,7 @@ const MeetWithSearchBar = () => {
 
 const SearchWithSearchBar = () => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#121212" }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f2f2f2" }}>
       <SearchBarSearch />
       <SearchScreen />
       <FAB
@@ -174,24 +154,24 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { backgroundColor: "#2c2c2c" },
-        tabBarActiveTintColor: "#fff",
-        tabBarInactiveTintColor: "#aaa",
-        headerShown: false, // Menyembunyikan header pada tab navigator
+        tabBarStyle: { backgroundColor: "#fff" },
+        tabBarActiveTintColor: "#000",
+        tabBarInactiveTintColor: "#555",
+        headerShown: false,
       }}
     >
       <Tab.Screen
         name="Home"
         component={HomeWithSearchBar}
         options={{
-          tabBarIcon: ({ color, size, focused }) => (
+          tabBarIcon: ({ size, focused }) => (
             <Image
               source={
                 focused
-                  ? require("./assets/email_active.png")
+                  ? require("./assets/email2.png")
                   : require("./assets/email.png")
               }
-              style={{ width: size, height: size, tintColor: color }}
+              style={{ width: size, height: size }}
             />
           ),
         }}
@@ -235,16 +215,16 @@ export default function App() {
         <SafeAreaView style={styles.safeArea}>
           <NavigationContainer>
             <Drawer.Navigator
-              drawerContent={(props) => <CustomDrawerContent {...props} />} // Apply custom drawer content
+              drawerContent={(props) => <CustomDrawerContent {...props} />}
               screenOptions={{
-                headerShown: false, // Hide header
+                headerShown: false,
               }}
             >
               <Drawer.Screen name="Main" component={BottomTabNavigator} />
               <Drawer.Screen name="Meet" component={BottomTabNavigator} />
               <Drawer.Screen name="Search" component={SearchWithSearchBar} />
             </Drawer.Navigator>
-            <StatusBar style="light" />
+            <StatusBar style="dark" />
           </NavigationContainer>
         </SafeAreaView>
       )}
@@ -256,14 +236,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#121212", // Mengubah background menjadi warna gelap
+    backgroundColor: "#f9f9f9",
     alignItems: "center",
     justifyContent: "center",
   },
   safeArea: {
     flex: 1,
-    backgroundColor: "#2c2c2c", // Menjaga warna gelap pada SafeArea
-    paddingTop: 50, // Menambahkan padding atas agar konten tidak terlalu atas
+    backgroundColor: "#f2f2f2",
+    paddingTop: 50,
   },
   searchBarContainers: {
     flexDirection: "row",
@@ -271,8 +251,7 @@ const styles = StyleSheet.create({
     height: 53,
     width: "100%",
     padding: 10,
-    // borderRadius: 40,
-    backgroundColor: "#444", // Background search bar mirip dengan yang ada di gambar
+    backgroundColor: "#eee",
   },
   searchBarContainerss: {
     flexDirection: "row",
@@ -281,64 +260,73 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 10,
     borderRadius: 40,
-    backgroundColor: "#444", // Background search bar mirip dengan yang ada di gambar
+    backgroundColor: "#e0e0e0",
   },
   searchBarContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between", // Membuat ikon di kiri dan kanan
+    justifyContent: "space-between",
     padding: 10,
-    backgroundColor: "#000", // Background search bar mirip dengan yang ada di gambar
+    backgroundColor: "#f2f2f2",
   },
   searchBarContainerr: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between", // Membuat ikon di kiri dan kanan
-    backgroundColor: "#000", // Background search bar mirip dengan yang ada di gambar
+    justifyContent: "space-between",
+    backgroundColor: "#f2f2f2",
   },
   centeredContainer: {
-    flex: 1, // Memastikan bahwa teks berada di tengah dan mengisi ruang yang tersisa
+    flex: 1,
     alignItems: "center",
   },
   centeredContainersearch: {
-    flex: 1, // Ensures the text is centered and fills the available space
+    flex: 1,
     justifyContent: "center",
     height: "100%",
   },
   Meet: {
     fontSize: 18,
-    color: "#fff",
+    color: "#000",
   },
   searchInput: {
     flex: 1,
     height: "100%",
-    backgroundColor: "#444", // Background color of the button
+    // backgroundColor: "#e0e0e0",
     borderRadius: 20,
-    paddingLeft: 10, // Adjust padding to move the text to the left
-    justifyContent: "center", // Center the text vertically
+    paddingLeft: 10,
+    justifyContent: "center",
   },
   buttonText: {
-    color: "#fff", // White text color
-    fontSize: 18, // Font size
-    textAlign: "left", // Align text to the left
+    color: "#000",
+    fontSize: 18,
+    textAlign: "left",
   },
   profileIconContainer: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#555", // Background warna untuk ikon profil
+    backgroundColor: "#ddd",
     alignItems: "center",
     justifyContent: "center",
-    marginLeft: 10, // Memberi jarak antara input pencarian dan ikon profil
+    marginLeft: 10,
+  },
+  profileMicContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 10,
   },
   profileText: {
-    color: "#fff", // Warna teks putih untuk huruf profil
-    fontSize: 18, // Ukuran teks
+    color: "#000",
+    fontSize: 18,
   },
   fab: {
     position: "absolute",
     margin: 16,
     right: 0,
     bottom: 0,
+    backgroundColor: "#007bff", // FAB color
   },
 });
