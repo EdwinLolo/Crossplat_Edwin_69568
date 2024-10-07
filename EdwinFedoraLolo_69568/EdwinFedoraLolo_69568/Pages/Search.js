@@ -8,8 +8,8 @@ import {
   ScrollView,
 } from "react-native";
 import { Button } from "react-native-paper";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 const recentSearches = [
   { id: "1", search: "database" },
@@ -31,7 +31,7 @@ const ButtonRow = () => {
           contentStyle={styles.buttonContent}
           labelStyle={styles.buttonText}
           style={styles.button}
-          icon={() => <Icon name="arrow-drop-down" size={16} color="#000" />} // Icon color updated to black
+          icon={() => <Icon name="arrow-drop-down" size={16} color="#000" />}
         >
           Labels
         </Button>
@@ -40,7 +40,7 @@ const ButtonRow = () => {
           contentStyle={styles.buttonContent}
           labelStyle={styles.buttonText}
           style={styles.button}
-          icon={() => <Icon name="arrow-drop-down" size={16} color="#000" />} // Icon color updated to black
+          icon={() => <Icon name="arrow-drop-down" size={16} color="#000" />}
         >
           From
         </Button>
@@ -49,7 +49,7 @@ const ButtonRow = () => {
           contentStyle={styles.buttonContent}
           labelStyle={styles.buttonText}
           style={styles.button}
-          icon={() => <Icon name="arrow-drop-down" size={16} color="#000" />} // Icon color updated to black
+          icon={() => <Icon name="arrow-drop-down" size={16} color="#000" />}
         >
           To
         </Button>
@@ -58,7 +58,7 @@ const ButtonRow = () => {
           contentStyle={styles.buttonContent}
           labelStyle={styles.buttonText}
           style={styles.button}
-          icon={() => <Icon name="arrow-drop-down" size={16} color="#000" />} // Icon color updated to black
+          icon={() => <Icon name="arrow-drop-down" size={16} color="#000" />}
         >
           Attachments
         </Button>
@@ -70,12 +70,7 @@ const ButtonRow = () => {
 const RecentSearchScreen = () => {
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.searchItem}>
-      <Ionicons
-        name="time-outline"
-        size={18}
-        color="#000" // Updated icon color to black
-        style={styles.icon}
-      />
+      <MaterialIcons name="update" size={24} color="#000" />
       <Text style={styles.searchText}>{item.search}</Text>
     </TouchableOpacity>
   );
@@ -95,7 +90,7 @@ const RecentSearchScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f9f9f9", // Light background color
+    backgroundColor: "#f9f9f9",
     padding: 15,
   },
   searchItem: {
@@ -103,37 +98,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 10,
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd", // Light border color for separation
+    borderBottomColor: "#ddd",
   },
   icon: {
     marginRight: 10,
   },
   searchText: {
-    color: "#000", // Black color for the search text
+    color: "#000",
     fontSize: 16,
   },
   scrollView: {
-    maxHeight: 50, // Set a fixed height or maxHeight to avoid expanding too much
+    maxHeight: 50,
   },
   containerButtonRow: {
     flexDirection: "row",
-    backgroundColor: "#f9f9f9", // Light background for button row
+    backgroundColor: "#f9f9f9",
   },
   button: {
     borderRadius: 8,
-    borderColor: "#bbb", // Light border color
+    borderColor: "#bbb",
     borderWidth: 1,
-    marginHorizontal: 10, // Increase spacing between buttons
+    marginHorizontal: 10,
     marginVertical: 5,
-    height: 40, // Adjust the height of the button
+    height: 40,
   },
   buttonContent: {
-    height: 40, // Adjust the height of the button
+    height: 40,
     paddingHorizontal: 5,
     justifyContent: "center",
   },
   buttonText: {
-    color: "#000", // Black text color
+    color: "#000",
     fontSize: 14,
   },
 });

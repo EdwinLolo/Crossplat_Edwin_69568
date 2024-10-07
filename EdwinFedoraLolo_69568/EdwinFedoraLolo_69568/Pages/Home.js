@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, FlatList, StyleSheet, Image } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
-// Data sementara
 const emails = [
   {
     id: "1",
@@ -139,7 +138,6 @@ const emails = [
   },
 ];
 
-// Komponen untuk render setiap item email
 const EmailItem = ({ item }) => (
   <View style={styles.emailItem}>
     <View
@@ -163,7 +161,7 @@ const EmailItem = ({ item }) => (
 
 const Home = () => {
   return (
-    <>
+    <View style={styles.rootContainer}>
       <Text style={styles.primary}>Primary</Text>
       <FlatList
         data={emails}
@@ -171,14 +169,18 @@ const Home = () => {
         renderItem={({ item }) => <EmailItem item={item} />}
         style={styles.container}
       />
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    backgroundColor: "#F5FAFE",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#F5FAFE", // updated color
     padding: 10,
     paddingTop: 0,
   },

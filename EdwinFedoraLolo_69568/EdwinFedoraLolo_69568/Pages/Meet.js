@@ -5,7 +5,6 @@ import MeetDetail from "../assets/Meet_detail.png";
 const Meet = () => {
   return (
     <View style={styles.container}>
-      {/* Bagian Tombol */}
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.newMeetingButton}>
           <Text style={styles.newMeetingText}>New meeting</Text>
@@ -15,7 +14,6 @@ const Meet = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Ilustrasi dan Teks Deskripsi */}
       <View style={styles.contentContainer}>
         <Image source={MeetDetail} style={styles.image} />
 
@@ -33,26 +31,26 @@ const Meet = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5", // Latar belakang terang
+    backgroundColor: "#F5FAFE",
   },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "center",
     position: "absolute",
-    top: 25, // Sesuaikan jarak dari atas
+    top: 25,
     left: 0,
     right: 0,
-    paddingHorizontal: 20, // Memberi sedikit padding di sisi kiri dan kanan
+    paddingHorizontal: 20,
   },
   newMeetingButton: {
-    backgroundColor: "#0066cc", // Warna biru untuk tombol
+    backgroundColor: "#0066cc",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
     marginRight: 10,
   },
   newMeetingText: {
-    color: "#fff", // Teks putih
+    color: "#fff",
     fontSize: 16,
   },
   joinCodeButton: {
@@ -63,19 +61,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   joinCodeText: {
-    color: "#0066cc", // Teks biru
+    color: "#0066cc",
     fontSize: 16,
   },
   contentContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 0, // Jarak antara tombol dan konten
+    paddingTop: 0,
   },
   image: {
     width: 200,
     height: 200,
-    marginTop: 60, // Jarak antara tombol dan gambar
+    marginTop: 60,
     marginBottom: 20,
   },
   title: {

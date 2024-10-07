@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import { DrawerContentScrollView } from "@react-navigation/drawer";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons"; // Import MaterialIcons
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 const CustomDrawerContent = (props) => {
   return (
@@ -15,14 +15,11 @@ const CustomDrawerContent = (props) => {
       {...props}
       contentContainerStyle={styles.drawerContent}
     >
-      {/* Header Section */}
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>Gmail</Text>
       </View>
 
-      {/* Scrollable Drawer Content */}
       <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
-        {/* Section: All Inbox */}
         <TouchableOpacity style={styles.drawerItemAllInbox}>
           <View style={styles.drawerItemRow}>
             <MaterialIcons name="move-to-inbox" size={24} color="#000" />
@@ -30,7 +27,6 @@ const CustomDrawerContent = (props) => {
           </View>
         </TouchableOpacity>
 
-        {/* Section: Primary */}
         <TouchableOpacity style={styles.drawerItem}>
           <View style={styles.drawerItemRow}>
             <MaterialIcons name="inbox" size={24} color="#000" />
@@ -39,7 +35,6 @@ const CustomDrawerContent = (props) => {
           <Text style={styles.notificationBadge}>99+</Text>
         </TouchableOpacity>
 
-        {/* Section: Promotions */}
         <TouchableOpacity style={styles.drawerItem}>
           <View style={styles.drawerItemRow}>
             <MaterialIcons name="local-offer" size={24} color="#000" />
@@ -50,7 +45,6 @@ const CustomDrawerContent = (props) => {
           </Text>
         </TouchableOpacity>
 
-        {/* Section: Social */}
         <TouchableOpacity style={styles.drawerItem}>
           <View style={styles.drawerItemRow}>
             <MaterialIcons name="group" size={24} color="#000" />
@@ -61,7 +55,6 @@ const CustomDrawerContent = (props) => {
           </Text>
         </TouchableOpacity>
 
-        {/* Section: Updates */}
         <TouchableOpacity style={styles.drawerItem}>
           <View style={styles.drawerItemRow}>
             <MaterialIcons name="update" size={24} color="#000" />
@@ -82,7 +75,6 @@ const CustomDrawerContent = (props) => {
 
         <Text style={styles.recentLabel}>All labels</Text>
 
-        {/* Other Sections */}
         <TouchableOpacity style={styles.drawerItem}>
           <View style={styles.drawerItemRow}>
             <MaterialIcons name="star" size={24} color="#000" />
@@ -192,48 +184,49 @@ const CustomDrawerContent = (props) => {
 
 const styles = StyleSheet.create({
   drawerContent: {
+    backgroundColor: "#DDEEF6",
     flex: 1,
   },
   headerContainer: {
-    backgroundColor: "#f2f2f2", // Light background
+    // backgroundColor: "#f2f2f2",
     paddingVertical: 20,
     paddingHorizontal: 15,
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
+    borderBottomColor: "#ADBAC2",
   },
   headerText: {
-    color: "#000",
+    color: "#FF0000",
     fontSize: 24,
     fontWeight: "bold",
   },
   content: {
     flex: 1,
-    backgroundColor: "#fff", // Light background
+    backgroundColor: "#DDEEF6",
   },
   drawerItemAllInbox: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center", // Align vertically center
+    alignItems: "center",
     paddingVertical: 20,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#ddd",
+    borderBottomColor: "#ADBAC2",
   },
   drawerItem: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center", // Align vertically center
+    alignItems: "center",
     paddingVertical: 15,
     paddingHorizontal: 20,
   },
   drawerItemRow: {
     flexDirection: "row",
-    alignItems: "center", // Align text and icon horizontally
+    alignItems: "center",
   },
   drawerItemText: {
-    color: "#000", // Dark text
+    color: "#000",
     fontSize: 18,
-    marginLeft: 10, // Margin between icon and text
+    marginLeft: 10,
   },
   recentLabel: {
     paddingLeft: 20,
@@ -241,8 +234,8 @@ const styles = StyleSheet.create({
     color: "#555",
   },
   notificationBadge: {
-    color: "#fff",
-    backgroundColor: "#555",
+    color: "#041929",
+    // backgroundColor: "#555",
     borderRadius: 12,
     paddingHorizontal: 8,
     paddingVertical: 2,
@@ -258,7 +251,7 @@ const styles = StyleSheet.create({
   },
   spacer: {
     borderTopWidth: 1,
-    borderTopColor: "#ddd",
+    borderTopColor: "#ADBAC2",
   },
 });
 

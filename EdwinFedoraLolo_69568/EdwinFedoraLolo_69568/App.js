@@ -24,38 +24,33 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import HomeScreen from "./Pages/Home.js";
 import MeetScreen from "./Pages/Meet";
 import SplashScreen from "./Pages/Splash";
-import CustomDrawerContent from "./Pages/CustomDrawerContent.js"; // Import the custom drawer
+import CustomDrawerContent from "./Pages/CustomDrawerContent.js";
 import SearchScreen from "./Pages/Search.js";
 
-import Microphone from "./assets/microphone_putih.png";
+import Microphone from "./assets/microphone-01.png";
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// Komponen Search Bar yang baru
 const SearchBar = () => {
-  const navigation = useNavigation(); // Mengambil instance navigation
+  const navigation = useNavigation();
 
   const handlePress = () => {
-    // Navigate to the target screen, replace 'TargetScreen' with your actual screen name
     navigation.navigate("Search");
   };
 
   return (
     <View style={styles.searchBarContainer}>
       <View style={styles.searchBarContainerss}>
-        {/* Drawer Hamburger Icon */}
         <DrawerToggleButton tintColor="#000" />
 
-        {/* Custom Button with left-aligned text and navigation on press */}
         <View style={styles.centeredContainersearch}>
           <TouchableOpacity style={styles.searchInput} onPress={handlePress}>
             <Text style={styles.buttonText}>Search in mail</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Profile Icon */}
         <View style={styles.profileIconContainer}>
           <Text style={styles.profileText}>P</Text>
         </View>
@@ -65,18 +60,16 @@ const SearchBar = () => {
 };
 
 const SearchBarMeet = () => {
-  const navigation = useNavigation(); // Mengambil instance navigation
+  const navigation = useNavigation();
 
   return (
     <View style={styles.searchBarContainer}>
       <DrawerToggleButton tintColor="#000" />
 
-      {/* Centered Meet Text */}
       <View style={styles.centeredContainer}>
         <Text style={styles.Meet}>Meet</Text>
       </View>
 
-      {/* Profile Icon */}
       <View style={styles.profileIconContainer}>
         <Text style={styles.profileText}>P</Text>
       </View>
@@ -85,24 +78,21 @@ const SearchBarMeet = () => {
 };
 
 const SearchBarSearch = () => {
-  const navigation = useNavigation(); // Mengambil instance navigation
+  const navigation = useNavigation();
 
   return (
     <View style={styles.searchBarContainerr}>
       <View style={styles.searchBarContainers}>
-        {/* Drawer Hamburger Icon */}
         <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-          <Ionicons name="arrow-back" size={18} color="#000" />
+          <Ionicons name="arrow-back" size={18} color="#3F4851" />
         </TouchableOpacity>
 
-        {/* Search Input */}
         <TextInput
           style={styles.searchInput}
           placeholder="Search in mail"
-          placeholderTextColor="#999"
+          placeholderTextColor="#3F4851"
         />
 
-        {/* Profile Icon */}
         <View style={styles.profileMicContainer}>
           <Image source={Microphone} />
         </View>
@@ -111,7 +101,6 @@ const SearchBarSearch = () => {
   );
 };
 
-// Wrapper untuk layar Home dan Meet dengan Search Bar
 const HomeWithSearchBar = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f2f2f2" }}>
@@ -149,12 +138,11 @@ const SearchWithSearchBar = () => {
   );
 };
 
-// Bottom Tab Navigator untuk menavigasi antara Home dan Meet
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: { backgroundColor: "#fff" },
+        tabBarStyle: { backgroundColor: "#E5EEF7" },
         tabBarActiveTintColor: "#000",
         tabBarInactiveTintColor: "#555",
         headerShown: false,
@@ -196,15 +184,14 @@ const BottomTabNavigator = () => {
   );
 };
 
-// Drawer Navigator dengan BottomTabNavigator di dalamnya
 export default function App() {
   const [isSplash, setIsSplash] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsSplash(false);
-    }, 3500); // Splash screen duration (3.5 seconds)
-    return () => clearTimeout(timer); // Cleanup timer on unmount
+    }, 3500);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -242,7 +229,7 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#F5FAFE",
     paddingTop: 50,
   },
   searchBarContainers: {
@@ -251,7 +238,9 @@ const styles = StyleSheet.create({
     height: 53,
     width: "100%",
     padding: 10,
-    backgroundColor: "#eee",
+    backgroundColor: "#E1EAF3",
+    borderBottomWidth: 1,
+    borderBottomColor: "#C7CED8",
   },
   searchBarContainerss: {
     flexDirection: "row",
@@ -260,20 +249,20 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 10,
     borderRadius: 40,
-    backgroundColor: "#e0e0e0",
+    backgroundColor: "#E1EAF3",
   },
   searchBarContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     padding: 10,
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#F5FAFE",
   },
   searchBarContainerr: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#E1EAF3",
   },
   centeredContainer: {
     flex: 1,
@@ -293,8 +282,9 @@ const styles = StyleSheet.create({
     height: "100%",
     // backgroundColor: "#e0e0e0",
     borderRadius: 20,
-    paddingLeft: 10,
+    paddingLeft: 30,
     justifyContent: "center",
+    fontSize: 18,
   },
   buttonText: {
     color: "#000",
@@ -327,6 +317,6 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
-    backgroundColor: "#007bff", // FAB color
+    backgroundColor: "#CFE6F6",
   },
 });

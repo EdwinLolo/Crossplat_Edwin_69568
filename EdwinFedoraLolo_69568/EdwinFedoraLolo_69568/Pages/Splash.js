@@ -25,12 +25,12 @@ const styles = StyleSheet.create({
     height: 200,
   },
   text: {
-    position: "absolute", // Allows absolute positioning
-    bottom: 80, // Places the text 50 pixels from the bottom
+    position: "absolute",
+    bottom: 80,
     fontSize: 20,
     color: "#555",
     fontWeight: "bold",
-    alignSelf: "center", // Aligns the text horizontally in the center
+    alignSelf: "center",
   },
 });
 
