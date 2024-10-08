@@ -46,7 +46,7 @@ const SearchBar = () => {
         <DrawerToggleButton tintColor="#000" />
 
         <View style={styles.centeredContainersearch}>
-          <TouchableOpacity style={styles.searchInput} onPress={handlePress}>
+          <TouchableOpacity onPress={handlePress}>
             <Text style={styles.buttonText}>Search in mail</Text>
           </TouchableOpacity>
         </View>
