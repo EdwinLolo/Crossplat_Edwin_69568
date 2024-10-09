@@ -15,7 +15,7 @@ const Pin = () => {
   const route = useRoute();
   const { addTransaction } = useTransaction(); // Ambil fungsi addTransaction dari context
 
-  const { phoneNumber, nominal, harga, operator } = route.params || {};
+  const { phoneNumber, customerId, nominal, harga, type } = route.params || {};
   const [pin, setPin] = useState("");
   const correctPin = "080704";
 
@@ -26,12 +26,12 @@ const Pin = () => {
       // Buat objek transaksi baru
       const newTransaction = {
         traceNo: Math.floor(Math.random() * 1000000).toString(),
-        phoneNumber,
+        phoneNumber: type === "Pulsa" ? phoneNumber : customerId,
         nominal,
         harga,
-        operator,
+        operator: type === "Pulsa" ? "Telkomsel" : "PLN",
         date: new Date().toLocaleString(),
-        type: "Pulsa",
+        type,
       };
 
       // Tambahkan transaksi ke dalam context

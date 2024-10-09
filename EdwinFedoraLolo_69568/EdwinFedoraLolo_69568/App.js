@@ -12,6 +12,7 @@ import Payment from "./Components/Payment";
 import Pin from "./Components/Pin";
 import History_detail from "./Components/History_detail";
 import Listrik from "./Components/Listrik";
+import BPJS from "./Components/Bpjs";
 
 const Stack = createNativeStackNavigator();
 
@@ -65,6 +66,12 @@ export default function App() {
           <Stack.Screen
             name="Listrik"
             component={Listrik}
+            options={{ headerShown: false }}
+            style={{ backgroundColor: "#FFFFFF" }}
+          />
+          <Stack.Screen
+            name="BPJS"
+            component={BPJS}
             options={{ headerShown: false }}
             style={{ backgroundColor: "#FFFFFF" }}
           />

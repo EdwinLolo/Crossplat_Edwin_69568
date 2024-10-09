@@ -88,7 +88,7 @@ const Payment = () => {
   const route = useRoute();
 
   // Data yang dikirim dari halaman sebelumnya
-  const { nominal, harga, phoneNumber, operator } = route.params;
+  const { nominal, harga, phoneNumber, customerId, type } = route.params;
 
   // console.log(nominal);
   // console.log(harga);
@@ -104,61 +104,24 @@ const Payment = () => {
 
   return (
     <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <AntDesign name="arrowleft" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Konfirmasi Pembayaran</Text>
-      </View>
-
-      {/* Informasi Operator dan Nomor */}
       <View style={styles.paymentInfo}>
-        {/* Ikon Operator */}
-        {getOperatorIcon(prefix)}
-        <View style={styles.operatorInfo}>
-          <Text style={styles.operator}>{operator}</Text>
-          <Text style={styles.phoneNumber}>{phoneNumber}</Text>
-        </View>
-        <Text style={styles.amount}>Rp {harga.toLocaleString("id-ID")}</Text>
+        {type === "Pulsa" ? (
+          <>
+            <Text style={styles.label}>Phone Number:</Text>
+            <Text style={styles.value}>{phoneNumber}</Text>
+          </>
+        ) : (
+          <>
+            <Text style={styles.label}>ID Pelanggan:</Text>
+            <Text style={styles.value}>{customerId}</Text>
+          </>
+        )}
+        <Text style={styles.label}>Nominal:</Text>
+        <Text style={styles.value}>{nominal.toLocaleString("id-ID")}</Text>
+        <Text style={styles.label}>Total:</Text>
+        <Text style={styles.value}>Rp {harga.toLocaleString("id-ID")}</Text>
       </View>
 
-      {/* Metode Pembayaran */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Metode Pembayaran</Text>
-        <View style={styles.paymentMethod}>
-          <Ionicons name="wallet-outline" size={24} color="#000" />
-          <View style={styles.methodInfo}>
-            <Text style={styles.methodName}>Saldo saya</Text>
-            <Text style={styles.methodBalance}>Rp 900.000</Text>
-          </View>
-          <Text style={styles.amount}>Rp {harga.toLocaleString("id-ID")}</Text>
-        </View>
-      </View>
-
-      {/* Detail Pembayaran */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Detail Pembayaran</Text>
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>Harga Voucher</Text>
-          <Text style={styles.detailValue}>
-            Rp {harga.toLocaleString("id-ID")}
-          </Text>
-        </View>
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>Biaya Transaksi</Text>
-          <Text style={styles.detailValue}>Rp 0</Text>
-        </View>
-        <View style={styles.spacer}></View>
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>Total Pembayaran</Text>
-          <Text style={styles.detailValue}>
-            Rp {harga.toLocaleString("id-ID")}
-          </Text>
-        </View>
-      </View>
-
-      {/* Tombol Konfirmasi */}
       <TouchableOpacity
         style={styles.button}
         onPress={() =>
@@ -166,6 +129,8 @@ const Payment = () => {
             nominal,
             harga,
             phoneNumber,
+            customerId,
+            type,
             operator,
           })
         }

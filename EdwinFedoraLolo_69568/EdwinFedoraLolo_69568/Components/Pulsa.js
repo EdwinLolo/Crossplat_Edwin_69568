@@ -99,7 +99,12 @@ const Pulsa = () => {
 
   const handleNominalPress = (nominal, harga) => {
     const operator = getOperator(phoneNumber);
-    navigation.navigate("Payment", { nominal, harga, phoneNumber, operator });
+    navigation.navigate("Payment", {
+      nominal,
+      harga,
+      type: "Pulsa",
+      phoneNumber,
+    });
   };
 
   return (

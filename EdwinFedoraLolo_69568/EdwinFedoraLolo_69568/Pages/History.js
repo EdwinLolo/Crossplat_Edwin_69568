@@ -30,6 +30,10 @@ const History = () => {
               <Text>Trace No: {item.traceNo}</Text>
               <Text>Tanggal: {item.date}</Text>
               <Text>Jenis Transaksi: {item.type}</Text>
+              <Text>
+                {item.type === "Pulsa" ? "Phone Number" : "ID Pelanggan"}:{" "}
+                {item.phoneNumber}
+              </Text>
               <Text>Total: Rp {item.harga.toLocaleString("id-ID")}</Text>
             </View>
           </TouchableOpacity>

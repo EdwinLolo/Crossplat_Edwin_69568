@@ -76,7 +76,10 @@ const HomeScreen = () => {
             />
             <Text>Listrik</Text>
           </TouchableOpacity>
-          <View style={styles.serviceItem}>
+          <TouchableOpacity
+            style={styles.serviceItem}
+            onPress={() => navigation.navigate("BPJS")}
+          >
             <AntDesign
               name="medicinebox"
               size={40}
@@ -85,7 +88,7 @@ const HomeScreen = () => {
             />
             {/* width: 40, height: 40, marginBottom: 5, */}
             <Text>BJS</Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* Promotional Banner Section */}
