@@ -56,7 +56,7 @@ export default function BottomNavbar() {
         }}
       />
       <Tab.Screen
-        name="Riwayat"
+        name="History"
         component={HistoryScreen}
         options={{
           tabBarIcon: ({ focused }) => {

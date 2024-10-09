@@ -1,22 +1,40 @@
+// History.js
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { useTransaction } from "../Components/TransactionContext"; // Import useTransaction
 
 const History = () => {
-  const route = useRoute();
+  const navigation = useNavigation();
+  const { history } = useTransaction(); // Ambil data riwayat transaksi dari context
 
-  // Mengambil data yang dikirim dari halaman Pin
-  const { phoneNumber, nominal, harga, operator } = route.params || {};
-
-  console.log(phoneNumber, nominal, harga, operator);
+  const handlePress = (transaction) => {
+    navigation.navigate("HistoryDetail", { transaction });
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>History Transaksi</Text>
-      <Text>Nomor HP: {phoneNumber}</Text>
-      <Text>Operator: {operator}</Text>
-      <Text>Nominal: {nominal}</Text>
-      <Text>Harga: Rp {harga ? harga.toLocaleString("id-ID") : ""}</Text>
+      <FlatList
+        data={history}
+        keyExtractor={(item) => item.traceNo.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => handlePress(item)}>
+            <View style={styles.transactionContainer}>
+              <Text>Trace No: {item.traceNo}</Text>
+              <Text>Tanggal: {item.date}</Text>
+              <Text>Jenis Transaksi: {item.type}</Text>
+              <Text>Total: Rp {item.harga.toLocaleString("id-ID")}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
     </View>
   );
 };
@@ -24,14 +42,21 @@ const History = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    paddingTop: 60,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
     backgroundColor: "#f4f4f4",
   },
   title: {
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 20,
+  },
+  transactionContainer: {
+    backgroundColor: "#fff",
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 10,
   },
 });
 

@@ -90,6 +90,15 @@ const Payment = () => {
   // Data yang dikirim dari halaman sebelumnya
   const { nominal, harga, phoneNumber, operator } = route.params;
 
+  // console.log(nominal);
+  // console.log(harga);
+  // console.log(phoneNumber);
+  // console.log(operator);
+
+  const handleNominalPress = (nominal, harga, phoneNumber, operator) => {
+    navigation.navigate("Pin", { nominal, harga, phoneNumber, operator });
+  };
+
   // Ambil prefix dari nomor telepon (4 digit pertama)
   const prefix = phoneNumber.substring(0, 4);
 
@@ -152,7 +161,14 @@ const Payment = () => {
       {/* Tombol Konfirmasi */}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("Pin")} // Arahkan ke halaman PIN Input
+        onPress={() =>
+          navigation.navigate("Pin", {
+            nominal,
+            harga,
+            phoneNumber,
+            operator,
+          })
+        }
       >
         <Text style={styles.buttonText}>Konfirmasi</Text>
       </TouchableOpacity>

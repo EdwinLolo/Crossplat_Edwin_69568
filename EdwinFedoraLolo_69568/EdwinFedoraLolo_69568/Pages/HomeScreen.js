@@ -64,7 +64,10 @@ const HomeScreen = () => {
             />
             <Text>Pulsa/Data</Text>
           </TouchableOpacity>
-          <View style={styles.serviceItem}>
+          <TouchableOpacity
+            style={styles.serviceItem}
+            onPress={() => navigation.navigate("Listrik")}
+          >
             <MaterialCommunityIcons
               name="lightning-bolt"
               size={40}
@@ -72,7 +75,7 @@ const HomeScreen = () => {
               style={styles.serviceIcon}
             />
             <Text>Listrik</Text>
-          </View>
+          </TouchableOpacity>
           <View style={styles.serviceItem}>
             <AntDesign
               name="medicinebox"
