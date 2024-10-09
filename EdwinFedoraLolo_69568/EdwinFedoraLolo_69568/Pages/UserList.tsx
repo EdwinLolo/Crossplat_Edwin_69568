@@ -7,14 +7,27 @@ import {
   StyleSheet,
 } from "react-native";
 import React from "react";
+import Animated, {
+  SlideInLeft,
+  SlideInRight,
+  SlideInDown,
+} from "react-native-reanimated";
+
 import userData from "../data.json";
 
 const UserList = ({ navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-      {userData.map((users) => {
+      {userData.map((users, index) => {
+        const baseDuration = 500;
+        const animationDelay = index * 200;
+
         return (
-          <View style={styles.userList} key={users.name}>
+          <Animated.View
+            entering={SlideInLeft.duration(baseDuration + animationDelay)}
+            style={styles.userList}
+            key={users.name}
+          >
             <TouchableOpacity
               style={styles.card}
               onPress={() =>
@@ -29,15 +42,27 @@ const UserList = ({ navigation }) => {
                   uri: users.photo_url,
                 }}
                 style={styles.avatar}
-                imageStyle={{ borderRadius: 50 }}
               />
 
-              <View style={styles.textContainer}>
-                <Text style={styles.boldText}>{users.name}</Text>
-                <Text style={styles.emailText}>{users.email}</Text>
-              </View>
+              <Animated.View
+                entering={SlideInDown.duration(700 + animationDelay)} // durasi dinamis
+                style={styles.textContainer}
+              >
+                <Animated.Text
+                  entering={SlideInRight.duration(1000 + animationDelay)} // durasi dinamis
+                  style={styles.boldText}
+                >
+                  {users.name}
+                </Animated.Text>
+                <Animated.Text
+                  entering={SlideInRight.duration(1000 + animationDelay)} // durasi dinamis
+                  style={styles.emailText}
+                >
+                  {users.email}
+                </Animated.Text>
+              </Animated.View>
             </TouchableOpacity>
-          </View>
+          </Animated.View>
         );
       })}
     </ScrollView>

@@ -1,15 +1,37 @@
 import { View, Text, Button, StyleSheet, Image } from "react-native";
+import Animated, {
+  SlideInLeft,
+  SlideInRight,
+  SlideInDown,
+  SlideInUp, // Import SlideInUp untuk animasi tombol
+} from "react-native-reanimated";
 import React from "react";
 
 const Profile = ({ navigation, route }) => {
   const { userName, userPhoto } = route.params;
+
   return (
-    <View style={styles.container}>
-      <Image style={styles.foto} source={{ uri: userPhoto }} />
-      {/* <Text>{userPhoto}</Text> */}
-      <Text>{userName}&apos;s Profile</Text>
-      <Button title="Go Back" onPress={() => navigation.navigate("UserList")} />
-    </View>
+    <Animated.View
+      entering={SlideInLeft.duration(700)}
+      style={styles.container}
+    >
+      <Animated.Image
+        entering={SlideInLeft.duration(1000)}
+        style={styles.foto}
+        source={{ uri: userPhoto }}
+      />
+      <Animated.Text entering={SlideInLeft.duration(1000)}>
+        {userName}&apos;s Profile
+      </Animated.Text>
+
+      {/* Tambahkan animasi pada tombol */}
+      <Animated.View entering={SlideInUp.duration(1200)}>
+        <Button
+          title="Go Back"
+          onPress={() => navigation.navigate("UserList")}
+        />
+      </Animated.View>
+    </Animated.View>
   );
 };
 
