@@ -95,8 +95,8 @@ const Payment = () => {
   // console.log(phoneNumber);
   // console.log(operator);
 
-  const handleNominalPress = (nominal, harga, phoneNumber, operator) => {
-    navigation.navigate("Pin", { nominal, harga, phoneNumber, operator });
+  const handleNominalPress = (nominal, harga, phoneNumber) => {
+    navigation.navigate("Pin", { nominal, harga, phoneNumber });
   };
 
   // Ambil prefix dari nomor telepon (4 digit pertama)
@@ -104,6 +104,12 @@ const Payment = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <AntDesign name="arrowleft" size={24} color="black" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Konfirmasi Pembayaran</Text>
+      </View>
       <View style={styles.paymentInfo}>
         {type === "Pulsa" ? (
           <>
@@ -131,7 +137,7 @@ const Payment = () => {
             phoneNumber,
             customerId,
             type,
-            operator,
+            operator: "Telokomsel",
           })
         }
       >

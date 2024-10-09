@@ -15,7 +15,8 @@ const Pin = () => {
   const route = useRoute();
   const { addTransaction } = useTransaction(); // Ambil fungsi addTransaction dari context
 
-  const { phoneNumber, customerId, nominal, harga, type } = route.params || {};
+  const { phoneNumber, customerId, nominal, harga, type, operator } =
+    route.params || {};
   const [pin, setPin] = useState("");
   const correctPin = "080704";
 
@@ -29,7 +30,7 @@ const Pin = () => {
         phoneNumber: type === "Pulsa" ? phoneNumber : customerId,
         nominal,
         harga,
-        operator: type === "Pulsa" ? "Telkomsel" : "PLN",
+        operator: type === "Pulsa" ? operator : "PLN",
         date: new Date().toLocaleString(),
         type,
       };
