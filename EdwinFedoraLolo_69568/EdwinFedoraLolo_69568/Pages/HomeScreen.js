@@ -65,7 +65,7 @@ const HomeScreen = () => {
           </TouchableOpacity>
           <TouchableOpacity style={[styles.serviceItem, styles.buttonShadow]}>
             <Feather name="more-horizontal" size={30} color="#16247d" />
-            <Text style={styles.actionText}>More</Text>
+            <Text style={styles.serviceText}>More</Text>
           </TouchableOpacity>
         </View>
 
@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     gap: 10,
+    marginBottom: 20,
   },
   actionButton: {
     backgroundColor: "#f3f9ff",
@@ -178,10 +179,18 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: "center",
     borderRadius: 20,
+    width: "23%",
+    height: 100,
   },
   serviceText: {
     color: "#16247d",
+    height: 40,
     marginTop: 10,
+    textAlign: "center",
+    justifyContent: "center",
+    alignContent: "center",
+    position: "absolute",
+    bottom: 0,
   },
   promoBanner: {
     justifyContent: "center",

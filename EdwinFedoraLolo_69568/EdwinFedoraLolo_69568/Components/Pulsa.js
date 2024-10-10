@@ -244,48 +244,50 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    paddingTop: 60,
-    backgroundColor: "#f4f4f4",
+    paddingTop: 55,
+    backgroundColor: "#c7e2f7", // Light blue background color similar to HomeScreen
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: 20,
+    paddingHorizontal: 20,
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: "bold",
+    color: "#16247d", // Dark blue for header title
     marginLeft: 80,
   },
   inputContainer: {
     marginBottom: 20,
   },
   label: {
-    fontSize: 16,
-    marginBottom: 8,
-    color: "#333",
+    fontSize: 18,
+    color: "#16247d", // Dark blue label to match HomeScreen theme
+    marginBottom: 10,
   },
   inputWrapper: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: "#f3f9ff", // Light blue background for input
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 20, // Rounded corners to match HomeScreen
     borderWidth: 1,
-    borderColor: "#e0e0e0",
+    borderColor: "#b0d4f1", // Blue border color
   },
   input: {
     flex: 1,
     fontSize: 16,
-    color: "#333",
+    color: "#16247d", // Dark blue input text
   },
   icon: {
     paddingHorizontal: 10,
   },
   tabContainer: {
     flexDirection: "row",
-    backgroundColor: "#f9f9f9",
-    borderRadius: 10,
+    backgroundColor: "#b0d4f1", // Light blue background for tab section
+    borderRadius: 20,
     marginBottom: 20,
     overflow: "hidden",
   },
@@ -296,13 +298,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   activeTab: {
-    backgroundColor: "#16247d",
+    backgroundColor: "#16247d", // Dark blue active tab background
   },
   textTab: {
-    color: "#fff",
+    color: "#fff", // White text for active tab
   },
   tabText: {
-    color: "#333",
+    color: "#16247d", // Dark blue for inactive tab
     fontSize: 16,
   },
   nominalContainer: {
@@ -314,11 +316,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   nominalCard: {
-    backgroundColor: "#fff",
+    backgroundColor: "#f3f9ff", // Light blue background for card
     padding: 20,
-    borderRadius: 10,
+    borderRadius: 20, // Rounded corners to match HomeScreen
     borderWidth: 1,
-    borderColor: "#e0e0e0",
+    borderColor: "#b0d4f1", // Light blue border
     flex: 1,
     marginHorizontal: 5,
     height: 120,
@@ -327,25 +329,25 @@ const styles = StyleSheet.create({
   nominalText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#333",
+    color: "#16247d", // Dark blue text
   },
   nominalHarga: {
     marginTop: 5,
     fontSize: 14,
-    color: "#666",
+    color: "#16247d", // Matching dark blue for pricing text
   },
   hargaText: {
     fontSize: 14,
-    color: "#000",
+    color: "#16247d",
   },
   infoContainer: {
     flexDirection: "row",
     alignItems: "center",
     padding: 15,
-    backgroundColor: "#fff",
-    borderRadius: 10,
+    backgroundColor: "#f3f9ff", // Light blue background for info panel
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: "#e0e0e0",
+    borderColor: "#b0d4f1", // Light blue border for info box
   },
   infoIcon: {
     width: 40,
@@ -357,14 +359,14 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 14,
-    color: "#666",
+    color: "#16247d", // Dark blue for informational text
   },
   errorText: {
-    color: "red",
+    color: "#d32f2f", // Red for error messages
     marginTop: 5,
   },
   validText: {
-    color: "green",
+    color: "#388e3c", // Green for valid messages
     marginTop: 5,
   },
 });
