@@ -31,10 +31,15 @@ const History = () => {
               <Text>Tanggal: {item.date}</Text>
               <Text>Jenis Transaksi: {item.type}</Text>
               <Text>
-                {item.type === "Pulsa" ? "Phone Number" : "ID Pelanggan"}:{" "}
-                {item.phoneNumber}
+                {item.type === "Pulsa"
+                  ? "Phone Number"
+                  : item.type === "Listrik"
+                  ? "ID Pelanggan"
+                  : "BPJS ID"}
+                : {item.phoneNumber}
               </Text>
               <Text>Total: Rp {item.harga.toLocaleString("id-ID")}</Text>
+              <Text>Status: {item.status}</Text>
             </View>
           </TouchableOpacity>
         )}

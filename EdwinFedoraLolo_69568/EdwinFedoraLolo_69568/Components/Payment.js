@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 // Daftar prefix untuk setiap operator
 const operatorPrefix = {
@@ -88,19 +88,11 @@ const Payment = () => {
   const route = useRoute();
 
   // Data yang dikirim dari halaman sebelumnya
-  const { nominal, harga, phoneNumber, customerId, type } = route.params;
-
-  // console.log(nominal);
-  // console.log(harga);
-  // console.log(phoneNumber);
-  // console.log(operator);
-
-  const handleNominalPress = (nominal, harga, phoneNumber) => {
-    navigation.navigate("Pin", { nominal, harga, phoneNumber });
-  };
+  const { nominal, harga, phoneNumber, customerId, type, bpjsNumber } =
+    route.params;
 
   // Ambil prefix dari nomor telepon (4 digit pertama)
-  const prefix = phoneNumber.substring(0, 4);
+  const prefix = phoneNumber?.substring(0, 4);
 
   return (
     <View style={styles.container}>
@@ -116,10 +108,15 @@ const Payment = () => {
             <Text style={styles.label}>Phone Number:</Text>
             <Text style={styles.value}>{phoneNumber}</Text>
           </>
-        ) : (
+        ) : type === "Listrik" ? (
           <>
             <Text style={styles.label}>ID Pelanggan:</Text>
             <Text style={styles.value}>{customerId}</Text>
+          </>
+        ) : (
+          <>
+            <Text style={styles.label}>BPJS NUMBER:</Text>
+            <Text style={styles.value}>{bpjsNumber}</Text>
           </>
         )}
         <Text style={styles.label}>Nominal:</Text>
@@ -137,7 +134,8 @@ const Payment = () => {
             phoneNumber,
             customerId,
             type,
-            operator: "Telokomsel",
+            bpjsNumber,
+            operator: prefix ? getOperatorIcon(prefix) : null,
           })
         }
       >
@@ -170,81 +168,21 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   paymentInfo: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: "column",
     backgroundColor: "#e0e0e0",
     padding: 15,
     borderRadius: 10,
     marginBottom: 20,
   },
-  icon: {
-    marginRight: 15,
-  },
-  operatorInfo: {
-    flex: 1,
-  },
-  operator: {
+  label: {
     fontSize: 16,
     fontWeight: "bold",
   },
-  phoneNumber: {
-    fontSize: 14,
-    color: "#666",
-  },
-  amount: {
+  value: {
     fontSize: 16,
-    fontWeight: "bold",
-  },
-  section: {
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
     marginBottom: 10,
-  },
-  paymentMethod: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#fff",
-    padding: 15,
-    borderRadius: 10,
-  },
-  methodInfo: {
-    flex: 1,
-    marginLeft: 10,
-  },
-  methodName: {
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  methodBalance: {
-    fontSize: 14,
-    color: "#666",
-  },
-  detailRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10,
-  },
-  detailLabel: {
-    fontSize: 14,
-    color: "#666",
-  },
-  detailValue: {
-    fontSize: 14,
-    fontWeight: "bold",
-  },
-  spacer: {
-    height: 1,
-    backgroundColor: "#e0e0e0",
-    marginVertical: 10,
   },
   button: {
-    position: "absolute",
-    bottom: 20,
-    left: 20,
-    width: "100%",
     backgroundColor: "#16247d",
     padding: 15,
     borderRadius: 30,

@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 // Import Icons
@@ -11,13 +18,10 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {/* Header Section */}
       <View style={styles.header}>
-        <Image
-          source={require("../assets/union.png")}
-          style={{ width: 55, height: 55, borderRadius: 10 }}
-        />
+        <Image source={require("../assets/union.png")} style={styles.logo} />
         <Text style={styles.appName}>All-U-Need</Text>
       </View>
 
@@ -28,24 +32,6 @@ const HomeScreen = () => {
             <Text style={styles.userName}>Edwin Fedora Lolo</Text>
             <Text style={styles.accountNumber}>2022</Text>
           </View>
-          <View style={styles.actionButtons}>
-            <TouchableOpacity
-              style={[styles.actionButton, { borderRightWidth: 2 }]}
-            >
-              <MaterialCommunityIcons name="upload" size={30} color="black" />
-              <Text>Transfer</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.actionButton, { borderRightWidth: 2 }]}
-            >
-              <MaterialCommunityIcons name="download" size={30} color="black" />
-              <Text>Tarik Tunai</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.actionButton]}>
-              <Feather name="more-horizontal" size={30} color="black" />
-              <Text>More</Text>
-            </TouchableOpacity>
-          </View>
         </View>
       </View>
 
@@ -53,41 +39,44 @@ const HomeScreen = () => {
         {/* Service Section */}
         <View style={styles.serviceContainer}>
           <TouchableOpacity
-            style={styles.serviceItem}
+            style={[styles.serviceItem, styles.buttonShadow]}
             onPress={() => navigation.navigate("Pulsa")}
           >
-            <Feather
-              name="smartphone"
-              size={40}
-              color="black"
-              style={styles.serviceIcon}
-            />
-            <Text>Pulsa/Data</Text>
+            <Feather name="smartphone" size={40} color="#16247d" />
+            <Text style={styles.serviceText}>Pulsa/Data</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.serviceItem}
+            style={[styles.serviceItem, styles.buttonShadow]}
             onPress={() => navigation.navigate("Listrik")}
           >
             <MaterialCommunityIcons
               name="lightning-bolt"
               size={40}
-              color="black"
-              style={styles.serviceIcon}
+              color="#16247d"
             />
-            <Text>Listrik</Text>
+            <Text style={styles.serviceText}>Listrik</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.serviceItem}
+            style={[styles.serviceItem, styles.buttonShadow]}
             onPress={() => navigation.navigate("BPJS")}
           >
-            <AntDesign
-              name="medicinebox"
-              size={40}
-              color="black"
-              style={styles.serviceIcon}
-            />
-            {/* width: 40, height: 40, marginBottom: 5, */}
-            <Text>BJS</Text>
+            <AntDesign name="medicinebox" size={40} color="#16247d" />
+            <Text style={styles.serviceText}>BPJS</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.serviceItem, styles.buttonShadow]}>
+            <Feather name="more-horizontal" size={30} color="#16247d" />
+            <Text style={styles.actionText}>More</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.actionButtons}>
+          <TouchableOpacity style={[styles.actionButton, styles.buttonShadow]}>
+            <MaterialCommunityIcons name="upload" size={30} color="#16247d" />
+            <Text style={styles.actionText}>Transfer</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.actionButton, styles.buttonShadow]}>
+            <MaterialCommunityIcons name="download" size={30} color="#16247d" />
+            <Text style={styles.actionText}>Tarik Tunai</Text>
           </TouchableOpacity>
         </View>
 
@@ -99,14 +88,14 @@ const HomeScreen = () => {
           />
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#c7e2f7", // Light blue background color
     paddingTop: 55,
   },
   header: {
@@ -115,47 +104,68 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 20,
   },
+  logo: {
+    width: 55,
+    height: 55,
+    borderRadius: 10,
+  },
   appName: {
-    fontSize: 24,
+    fontSize: 28,
     marginLeft: 10,
     fontWeight: "bold",
+    color: "#16247d", // Darker blue for text
   },
   userContainer: {
     paddingHorizontal: 20,
   },
   userInfoContainer: {
-    backgroundColor: "#f5f5f5",
-    borderRadius: 15,
-    marginBottom: 60,
+    backgroundColor: "#b0d4f1", // Slightly darker blue for user info
+    borderRadius: 20,
+    height: 100,
+    // marginBottom: 40,
+    // paddingVertical: 10,
+    flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 20,
   },
   userInfo: {
-    // marginBottom: 20,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    // paddingHorizontal: 20,
+    // paddingBottom: 10,
   },
   userName: {
-    fontSize: 18,
-    // fontWeight: "bold",
+    fontSize: 20,
+    color: "#16247d", // Dark blue text
   },
   accountNumber: {
     fontSize: 22,
-    color: "#666",
+    color: "#16247d",
     fontWeight: "bold",
-    // marginBottom: 15,
   },
   actionButtons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: "column",
+    justifyContent: "center",
+    gap: 10,
   },
   actionButton: {
-    padding: 10,
-    borderTopWidth: 2,
-    borderColor: "#e0e0e0",
-    width: "33.34%",
+    backgroundColor: "#f3f9ff",
+    padding: 15,
+    width: "100%",
     alignItems: "center",
+    borderRadius: 20,
+  },
+  actionText: {
+    color: "#16247d", // Dark blue for action button text
+    marginTop: 5,
+  },
+  buttonShadow: {
+    shadowColor: "#000",
+    shadowOffset: { width: 2, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   bottomContainer: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#c7e2f7",
     padding: 20,
   },
   serviceContainer: {
@@ -164,24 +174,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   serviceItem: {
+    backgroundColor: "#f3f9ff",
+    padding: 15,
     alignItems: "center",
-    width: "25%",
+    borderRadius: 20,
   },
-  serviceIcon: {
-    // width: 40,
-    // height: 40,
-    marginBottom: 5,
-    backgroundColor: "#fff",
-    padding: 10,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 2,
-      height: 5,
-    },
-    shadowOpacity: 0.75,
-    shadowRadius: 3.84,
-    elevation: 5,
+  serviceText: {
+    color: "#16247d",
+    marginTop: 10,
   },
   promoBanner: {
     justifyContent: "center",
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   promoImage: {
     width: "100%",
     height: 250,
-    borderRadius: 10,
+    borderRadius: 20,
   },
 });
 
