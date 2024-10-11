@@ -39,7 +39,13 @@ const History = () => {
                 : {item.phoneNumber}
               </Text>
               <Text>Total: Rp {item.harga.toLocaleString("id-ID")}</Text>
-              <Text>Status: {item.status}</Text>
+              <Text
+                style={{
+                  color: item.status === "Berhasil" ? "green" : "red",
+                }}
+              >
+                Status: {item.status}
+              </Text>
             </View>
           </TouchableOpacity>
         )}

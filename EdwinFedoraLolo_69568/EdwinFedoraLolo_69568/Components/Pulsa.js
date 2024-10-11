@@ -111,7 +111,10 @@ const Pulsa = () => {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
           <AntDesign name="arrowleft" size={24} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Pulsa & Paket Data</Text>
@@ -250,14 +253,17 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
-    paddingHorizontal: 20,
+    justifyContent: "center", // Untuk membuat teks di tengah
+    height: 60, // Sesuaikan dengan kebutuhan tinggi header
+  },
+  backButton: {
+    position: "absolute", // Pastikan back button berada di kiri
+    left: 15, // Atur jarak kiri dari tepi layar
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: "bold",
-    color: "#16247d", // Dark blue for header title
-    marginLeft: 80,
+    color: "#16247d", // Dark blue header text
   },
   inputContainer: {
     marginBottom: 20,
