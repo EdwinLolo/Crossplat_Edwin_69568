@@ -119,7 +119,7 @@ const HomeScreen = () => {
               styles.buttonShadow,
               isDarkMode && styles.darkServiceItem,
             ]}
-            onPress={() => navigation.navigate("TransaksiGagal")}
+            // onPress={() => navigation.navigate("TransaksiGagal")}
           >
             <Feather
               name="more-horizontal"
