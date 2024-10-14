@@ -4,6 +4,7 @@ import { Avatar } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "../Components/ThemeContext"; // Import useTheme for dark mode
 
 // Daftar prefix untuk setiap operator
 const operatorPrefix = {
@@ -49,7 +50,7 @@ const getOperatorIcon = (prefix, phoneNumber) => {
           <Text style={styles.subtitle}>{phoneNumber}</Text>
         </View>
       </>
-    ); // Ikon Telkomsel (sim merah)
+    );
   } else if (operatorPrefix.Indosat.includes(prefix)) {
     return (
       <>
@@ -62,7 +63,7 @@ const getOperatorIcon = (prefix, phoneNumber) => {
           <Text style={styles.subtitle}>{phoneNumber}</Text>
         </View>
       </>
-    ); // Ikon Indosat (sim kuning)
+    );
   } else if (operatorPrefix.XL.includes(prefix)) {
     return (
       <>
@@ -75,7 +76,7 @@ const getOperatorIcon = (prefix, phoneNumber) => {
           <Text style={styles.subtitle}>{phoneNumber}</Text>
         </View>
       </>
-    ); // Ikon XL (sim biru)
+    );
   } else if (operatorPrefix.Axis.includes(prefix)) {
     return (
       <>
@@ -88,7 +89,7 @@ const getOperatorIcon = (prefix, phoneNumber) => {
           <Text style={styles.subtitle}>{phoneNumber}</Text>
         </View>
       </>
-    ); // Ikon Axis (ungu)
+    );
   } else if (operatorPrefix.Tri.includes(prefix)) {
     return (
       <>
@@ -101,7 +102,7 @@ const getOperatorIcon = (prefix, phoneNumber) => {
           <Text style={styles.subtitle}>{phoneNumber}</Text>
         </View>
       </>
-    ); // Ikon Tri (biru muda)
+    );
   } else if (operatorPrefix.Smartfren.includes(prefix)) {
     return (
       <>
@@ -114,7 +115,7 @@ const getOperatorIcon = (prefix, phoneNumber) => {
           <Text style={styles.subtitle}>{phoneNumber}</Text>
         </View>
       </>
-    ); // Ikon Smartfren (oranye)
+    );
   } else {
     return <Ionicons name="ios-cellular" size={40} color="#000" />; // Default icon
   }
@@ -122,7 +123,6 @@ const getOperatorIcon = (prefix, phoneNumber) => {
 
 // Fungsi untuk mendapatkan nama operator berdasarkan prefix nomor telepon
 const getOperatorName = (prefix) => {
-  // Cek operator berdasarkan prefix
   if (operatorPrefix.Telkomsel.includes(prefix)) {
     return "Telkomsel";
   } else if (operatorPrefix.Indosat.includes(prefix)) {
@@ -136,65 +136,90 @@ const getOperatorName = (prefix) => {
   } else if (operatorPrefix.Smartfren.includes(prefix)) {
     return "Smartfren";
   } else {
-    return "Unknown Operator"; // Jika tidak ditemukan
+    return "Unknown Operator";
   }
 };
 
 const Payment = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const { isDarkMode } = useTheme(); // Access dark mode state
 
-  // Data yang dikirim dari halaman sebelumnya
   const { nominal, harga, phoneNumber, customerId, type, bpjsNumber } =
     route.params;
 
-  // Ambil prefix dari nomor telepon (4 digit pertama)
   const prefix = phoneNumber?.substring(0, 4);
-
-  // Dapatkan ikon operator
   const operatorIcon = getOperatorIcon(prefix, phoneNumber);
   const operatorName = getOperatorName(prefix);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
+    <View style={[styles.container, isDarkMode && styles.darkContainer]}>
+      <View style={[styles.header, isDarkMode && styles.darkHeader]}>
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <AntDesign name="arrowleft" size={24} color="black" />
+          <AntDesign
+            name="arrowleft"
+            size={24}
+            color={isDarkMode ? "#fff" : "black"} // Adjust icon color for dark mode
+          />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Konfirmasi Pembayaran</Text>
+        <Text style={[styles.headerTitle, isDarkMode && styles.darkText]}>
+          Konfirmasi Pembayaran
+        </Text>
       </View>
 
-      {/* Informasi Operator dan Nomor */}
       <View>
         {type === "Pulsa" ? (
-          <View style={styles.infoContainer}>
+          <View
+            style={[
+              styles.infoContainer,
+              isDarkMode && styles.darkInfoContainer,
+            ]}
+          >
             {operatorIcon}
-            <Text style={styles.amount}>
+            <Text style={[styles.amount, isDarkMode && styles.darkText]}>
               Rp {harga.toLocaleString("id-ID")}
             </Text>
           </View>
         ) : type === "Listrik" ? (
-          <View style={styles.infoContainer}>
+          <View
+            style={[
+              styles.infoContainer,
+              isDarkMode && styles.darkInfoContainer,
+            ]}
+          >
             <Avatar.Icon size={40} icon="cellphone" />
             <View style={styles.infoTextContainer}>
-              <Text style={styles.title}>Token Listrik</Text>
-              <Text style={styles.subtitle}>{customerId}</Text>
+              <Text style={[styles.title, isDarkMode && styles.darkText]}>
+                Token Listrik
+              </Text>
+              <Text style={[styles.subtitle, isDarkMode && styles.darkText]}>
+                {customerId}
+              </Text>
             </View>
-            <Text style={styles.amount}>
+            <Text style={[styles.amount, isDarkMode && styles.darkText]}>
               Rp {harga.toLocaleString("id-ID")}
             </Text>
           </View>
         ) : (
-          <View style={styles.infoContainer}>
+          <View
+            style={[
+              styles.infoContainer,
+              isDarkMode && styles.darkInfoContainer,
+            ]}
+          >
             <Avatar.Icon size={40} icon="cellphone" />
             <View style={styles.infoTextContainer}>
-              <Text style={styles.title}>BPJS</Text>
-              <Text style={styles.subtitle}>{customerId}</Text>
+              <Text style={[styles.title, isDarkMode && styles.darkText]}>
+                BPJS
+              </Text>
+              <Text style={[styles.subtitle, isDarkMode && styles.darkText]}>
+                {customerId}
+              </Text>
             </View>
-            <Text style={styles.amount}>
+            <Text style={[styles.amount, isDarkMode && styles.darkText]}>
               Rp {harga.toLocaleString("id-ID")}
             </Text>
           </View>
@@ -203,33 +228,53 @@ const Payment = () => {
 
       {/* Metode pembayaran */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Metode Pembayaran</Text>
-        <View style={styles.paymentMethod}>
+        <Text style={[styles.sectionTitle, isDarkMode && styles.darkText]}>
+          Metode Pembayaran
+        </Text>
+        <View
+          style={[styles.paymentMethod, isDarkMode && styles.darkPaymentMethod]}
+        >
           <Avatar.Icon size={40} icon="wallet" />
           <View style={styles.paymentTextContainer}>
-            <Text style={styles.title}>Saldo saya</Text>
-            <Text style={styles.subtitle}>Rp 900.000</Text>
+            <Text style={[styles.title, isDarkMode && styles.darkText]}>
+              Saldo saya
+            </Text>
+            <Text style={[styles.subtitle, isDarkMode && styles.darkText]}>
+              Rp 900.000
+            </Text>
           </View>
-          <Text style={styles.amount}>Rp {harga.toLocaleString("id-ID")}</Text>
+          <Text style={[styles.amount, isDarkMode && styles.darkText]}>
+            Rp {harga.toLocaleString("id-ID")}
+          </Text>
         </View>
       </View>
 
       {/* Detail Pembayaran */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Detail Pembayaran</Text>
+        <Text style={[styles.sectionTitle, isDarkMode && styles.darkText]}>
+          Detail Pembayaran
+        </Text>
         <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>Harga Voucher</Text>
-          <Text style={styles.detailValue}>
+          <Text style={[styles.detailLabel, isDarkMode && styles.darkText]}>
+            Harga Voucher
+          </Text>
+          <Text style={[styles.detailValue, isDarkMode && styles.darkText]}>
             Rp {harga.toLocaleString("id-ID")}
           </Text>
         </View>
         <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>Biaya Transaksi</Text>
-          <Text style={styles.detailValue}>Rp 0</Text>
+          <Text style={[styles.detailLabel, isDarkMode && styles.darkText]}>
+            Biaya Transaksi
+          </Text>
+          <Text style={[styles.detailValue, isDarkMode && styles.darkText]}>
+            Rp 0
+          </Text>
         </View>
         <View style={styles.totalRow}>
-          <Text style={styles.totalLabel}>Total Pembayaran</Text>
-          <Text style={styles.totalValue}>
+          <Text style={[styles.totalLabel, isDarkMode && styles.darkText]}>
+            Total Pembayaran
+          </Text>
+          <Text style={[styles.totalValue, isDarkMode && styles.darkText]}>
             Rp {harga.toLocaleString("id-ID")}
           </Text>
         </View>
@@ -247,9 +292,11 @@ const Payment = () => {
             operator: prefix ? operatorName : null,
           })
         }
-        style={styles.button}
+        style={[styles.button, isDarkMode && styles.darkButton]}
       >
-        <Text>Konfirmasi</Text>
+        <Text style={[styles.buttonText, isDarkMode && styles.darkButtonText]}>
+          Konfirmasi
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -262,22 +309,31 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: "#fff",
   },
+  darkContainer: {
+    backgroundColor: "#333", // Dark mode background color
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center", // Untuk membuat teks di tengah
-    height: 60, // Sesuaikan dengan kebutuhan tinggi header
+    justifyContent: "center",
+    height: 60,
     borderBottomWidth: 1,
     borderBottomColor: "#E0E0E0",
     marginBottom: 10,
   },
+  darkHeader: {
+    borderBottomColor: "#666", // Dark mode border color for header
+  },
   backButton: {
-    position: "absolute", // Pastikan back button berada di kiri
-    left: 15, // Atur jarak kiri dari tepi layar
+    position: "absolute",
+    left: 15,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  darkText: {
+    color: "#fff", // White text for dark mode
   },
   infoContainer: {
     flexDirection: "row",
@@ -286,6 +342,9 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     marginBottom: 20,
+  },
+  darkInfoContainer: {
+    backgroundColor: "#444", // Dark mode background for info container
   },
   infoTextContainer: {
     flex: 1,
@@ -317,6 +376,9 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
   },
+  darkPaymentMethod: {
+    backgroundColor: "#444", // Dark mode background for payment method
+  },
   paymentTextContainer: {
     flex: 1,
     marginLeft: 10,
@@ -344,8 +406,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   button: {
-    // marginTop: 20,
-    // padding: 10,
     position: "absolute",
     bottom: 20,
     left: 20,
@@ -355,6 +415,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+  },
+  darkButton: {
+    backgroundColor: "#555", // Dark mode background for button
+  },
+  buttonText: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  darkButtonText: {
+    color: "#fff", // White text for dark mode button
   },
 });
 

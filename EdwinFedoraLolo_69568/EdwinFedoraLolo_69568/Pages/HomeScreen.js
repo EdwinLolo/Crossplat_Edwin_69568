@@ -8,6 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "../Components/ThemeContext"; // Import useTheme
 
 // Import Icons
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -16,72 +17,162 @@ import Feather from "@expo/vector-icons/Feather";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const { isDarkMode } = useTheme(); // Access dark mode state
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={[styles.container, isDarkMode && styles.darkServiceItem]}
+    >
       {/* Header Section */}
       <View style={styles.header}>
         <Image source={require("../assets/union.png")} style={styles.logo} />
-        <Text style={styles.appName}>All-U-Need</Text>
+        <Text style={[styles.appName, isDarkMode && styles.darkText]}>
+          All-U-Need
+        </Text>
       </View>
 
       {/* User Info Section */}
-      <View style={styles.userContainer}>
-        <View style={styles.userInfoContainer}>
+      <View
+        style={[styles.userContainer, isDarkMode && styles.darkServiceItem]}
+      >
+        <View
+          style={[
+            styles.userInfoContainer,
+            isDarkMode && styles.darkUserInfoContainer,
+          ]}
+        >
           <View style={styles.userInfo}>
-            <Text style={styles.userName}>Edwin Fedora Lolo</Text>
-            <Text style={styles.accountNumber}>2022</Text>
+            <Text style={[styles.userName, isDarkMode && styles.darkText]}>
+              Edwin Fedora Lolo
+            </Text>
+            <Text style={[styles.accountNumber, isDarkMode && styles.darkText]}>
+              2022
+            </Text>
           </View>
         </View>
       </View>
 
-      <View style={styles.bottomContainer}>
+      <View
+        style={[styles.bottomContainer, isDarkMode && styles.darkServiceItem]}
+      >
         {/* Service Section */}
-        <View style={styles.serviceContainer}>
+        <View
+          style={[
+            styles.serviceContainer,
+            isDarkMode && styles.darkServiceItem,
+          ]}
+        >
           <TouchableOpacity
-            style={[styles.serviceItem, styles.buttonShadow]}
+            style={[
+              styles.serviceItem,
+              styles.buttonShadow,
+              isDarkMode && styles.darkServiceItem,
+            ]}
             onPress={() => navigation.navigate("Pulsa")}
           >
-            <Feather name="smartphone" size={40} color="#16247d" />
-            <Text style={styles.serviceText}>Pulsa/Data</Text>
+            <Feather
+              name="smartphone"
+              size={40}
+              color={isDarkMode ? "#fff" : "#16247d"}
+            />
+            <Text style={[styles.serviceText, isDarkMode && styles.darkText]}>
+              Pulsa/Data
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.serviceItem, styles.buttonShadow]}
+            style={[
+              styles.serviceItem,
+              styles.buttonShadow,
+              isDarkMode && styles.darkServiceItem,
+            ]}
             onPress={() => navigation.navigate("Listrik")}
           >
             <MaterialCommunityIcons
               name="lightning-bolt"
               size={40}
-              color="#16247d"
+              color={isDarkMode ? "#fff" : "#16247d"}
             />
-            <Text style={styles.serviceText}>Listrik</Text>
+            <Text style={[styles.serviceText, isDarkMode && styles.darkText]}>
+              Listrik
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={[styles.serviceItem, styles.buttonShadow]}
+            style={[
+              styles.serviceItem,
+              styles.buttonShadow,
+              isDarkMode && styles.darkServiceItem,
+            ]}
             onPress={() => navigation.navigate("BPJS")}
           >
-            <AntDesign name="medicinebox" size={40} color="#16247d" />
-            <Text style={styles.serviceText}>BPJS</Text>
+            <AntDesign
+              name="medicinebox"
+              size={40}
+              color={isDarkMode ? "#fff" : "#16247d"}
+            />
+            <Text style={[styles.serviceText, isDarkMode && styles.darkText]}>
+              BPJS
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.serviceItem, styles.buttonShadow]}>
-            <Feather name="more-horizontal" size={30} color="#16247d" />
-            <Text style={styles.serviceText}>More</Text>
+          <TouchableOpacity
+            style={[
+              styles.serviceItem,
+              styles.buttonShadow,
+              isDarkMode && styles.darkServiceItem,
+            ]}
+            onPress={() => navigation.navigate("TransaksiGagal")}
+          >
+            <Feather
+              name="more-horizontal"
+              size={30}
+              color={isDarkMode ? "#fff" : "#16247d"}
+            />
+            <Text style={[styles.serviceText, isDarkMode && styles.darkText]}>
+              More
+            </Text>
           </TouchableOpacity>
         </View>
 
-        <View style={styles.actionButtons}>
-          <TouchableOpacity style={[styles.actionButton, styles.buttonShadow]}>
-            <MaterialCommunityIcons name="upload" size={30} color="#16247d" />
-            <Text style={styles.actionText}>Transfer</Text>
+        <View
+          style={[styles.actionButtons, isDarkMode && styles.darkServiceItem]}
+        >
+          <TouchableOpacity
+            style={[
+              styles.actionButton,
+              styles.buttonShadow,
+              isDarkMode && styles.darkServiceItem,
+            ]}
+          >
+            <MaterialCommunityIcons
+              name="upload"
+              size={30}
+              color={isDarkMode ? "#fff" : "#16247d"}
+            />
+            <Text style={[styles.actionText, isDarkMode && styles.darkText]}>
+              Transfer
+            </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.actionButton, styles.buttonShadow]}>
-            <MaterialCommunityIcons name="download" size={30} color="#16247d" />
-            <Text style={styles.actionText}>Tarik Tunai</Text>
+          <TouchableOpacity
+            style={[
+              styles.actionButton,
+              styles.buttonShadow,
+              isDarkMode && styles.darkServiceItem,
+            ]}
+          >
+            <MaterialCommunityIcons
+              name="download"
+              size={30}
+              color={isDarkMode ? "#fff" : "#16247d"}
+            />
+            <Text style={[styles.actionText, isDarkMode && styles.darkText]}>
+              Tarik Tunai
+            </Text>
           </TouchableOpacity>
         </View>
 
         {/* Promotional Banner Section */}
-        <View style={styles.promoBanner}>
+        <View
+          style={[styles.promoBanner, isDarkMode && styles.darkServiceItem]}
+        >
           <Image
             source={require("../assets/promo.jpg")} // Example banner, use your actual asset
             style={styles.promoImage}
@@ -97,6 +188,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#c7e2f7", // Light blue background color
     paddingTop: 55,
+  },
+  darkContainer: {
+    backgroundColor: "#333", // Dark mode background
   },
   header: {
     flexDirection: "row",
@@ -115,6 +209,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#16247d", // Darker blue for text
   },
+  darkText: {
+    color: "#fff", // Text color for dark mode
+  },
   userContainer: {
     paddingHorizontal: 20,
   },
@@ -122,15 +219,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#b0d4f1", // Slightly darker blue for user info
     borderRadius: 20,
     height: 100,
-    // marginBottom: 40,
-    // paddingVertical: 10,
     flex: 1,
     justifyContent: "center",
     paddingHorizontal: 20,
   },
-  userInfo: {
-    // paddingHorizontal: 20,
-    // paddingBottom: 10,
+  darkUserInfoContainer: {
+    backgroundColor: "#444", // Dark mode user info container
   },
   userName: {
     fontSize: 20,
@@ -181,6 +275,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     width: "23%",
     height: 100,
+  },
+  darkServiceItem: {
+    backgroundColor: "#555", // Dark mode for service items
   },
   serviceText: {
     color: "#16247d",

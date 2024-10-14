@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const Transaksi_Berhasil = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { harga, date } = route.params || {};
 
-  useEffect(() => {
-    // Timeout untuk kembali setelah beberapa detik jika diperlukan
-    const timer = setTimeout(() => {
-      navigation.navigate("Home"); // Kembali ke halaman Home setelah waktu tertentu
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, [navigation]);
+  // useEffect(() => {
+  //   // Timeout untuk kembali setelah beberapa detik jika diperlukan
+  //   const timer = setTimeout(() => {
+  //     navigation.navigate("Home"); // Kembali ke halaman Home setelah waktu tertentu
+  //   }, 5000);
+  //   return () => clearTimeout(timer);
+  // }, [navigation]);
 
   return (
     <View style={styles.container}>
@@ -26,8 +28,8 @@ const Transaksi_Berhasil = () => {
 
       {/* Informasi pembayaran */}
       <Text style={styles.amount}>Pembayaran sebesar</Text>
-      <Text style={styles.price}>Rp 6.500</Text>
-      <Text style={styles.date}>04 Mei 2023, 21:49 PM</Text>
+      <Text style={styles.price}>Rp {harga?.toLocaleString("id-ID")}</Text>
+      <Text style={styles.date}>{date}</Text>
 
       {/* Informasi saldo */}
       <Text style={styles.balance}>

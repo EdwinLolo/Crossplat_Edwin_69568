@@ -10,9 +10,11 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useTheme } from "../Components/ThemeContext"; // Import useTheme for dark mode
 
 const Bpjs = () => {
   const navigation = useNavigation();
+  const { isDarkMode } = useTheme(); // Access dark mode state
   const [bpjsNumber, setBpjsNumber] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
   const [isBpjsNumberValid, setIsBpjsNumberValid] = useState(false);
@@ -47,25 +49,36 @@ const Bpjs = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isDarkMode && styles.darkContainer]}>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <AntDesign name="arrowleft" size={24} color="#16247d" />
+          <AntDesign
+            name="arrowleft"
+            size={24}
+            color={isDarkMode ? "#fff" : "#16247d"} // Adjust icon color for dark mode
+          />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Bayar BPJS</Text>
+        <Text style={[styles.headerTitle, isDarkMode && styles.darkText]}>
+          Bayar BPJS
+        </Text>
       </View>
 
       {/* Input Nomor BPJS */}
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Nomor BPJS</Text>
-        <View style={styles.inputWrapper}>
+        <Text style={[styles.label, isDarkMode && styles.darkText]}>
+          Nomor BPJS
+        </Text>
+        <View
+          style={[styles.inputWrapper, isDarkMode && styles.darkInputWrapper]}
+        >
           <TextInput
-            style={styles.input}
+            style={[styles.input, isDarkMode && styles.darkText]}
             placeholder="Masukkan nomor BPJS"
+            placeholderTextColor={isDarkMode ? "#ccc" : "#999"} // Adjust placeholder color for dark mode
             keyboardType="numeric"
             maxLength={13}
             value={bpjsNumber}
@@ -96,6 +109,8 @@ const Bpjs = () => {
                 style={[
                   styles.nominalCard,
                   months === num && styles.selectedCard,
+                  isDarkMode && months === num && styles.darkSelectedCard, // Dark mode for selected card
+                  isDarkMode && styles.darkNominalCard,
                 ]}
                 onPress={() => setMonths(num)}
               >
@@ -103,6 +118,7 @@ const Bpjs = () => {
                   style={[
                     styles.nominalText,
                     months === num && styles.selectedText,
+                    isDarkMode && styles.darkText,
                   ]}
                 >
                   {num} Bulan
@@ -111,6 +127,7 @@ const Bpjs = () => {
                   style={[
                     styles.nominalHarga,
                     months === num && styles.selectedText,
+                    isDarkMode && styles.darkText,
                   ]}
                 >
                   Nominal
@@ -119,6 +136,7 @@ const Bpjs = () => {
                   style={[
                     styles.hargaText,
                     months === num && styles.selectedText,
+                    isDarkMode && styles.darkText,
                   ]}
                 >
                   Rp {(num * 50000).toLocaleString("id-ID")}
@@ -131,15 +149,17 @@ const Bpjs = () => {
 
       {/* Info Panel */}
       {!isBpjsNumberValid && (
-        <View style={styles.infoContainer}>
+        <View
+          style={[styles.infoContainer, isDarkMode && styles.darkInfoContainer]}
+        >
           <Ionicons
             name="newspaper"
             size={30}
-            color="black"
+            color={isDarkMode ? "#fff" : "black"} // Adjust icon color for dark mode
             style={styles.infoIcon}
           />
           <View style={styles.infoTextContainer}>
-            <Text style={styles.infoText}>
+            <Text style={[styles.infoText, isDarkMode && styles.darkText]}>
               Masukkan nomor BPJS yang valid untuk menampilkan menu pembayaran.
             </Text>
           </View>
@@ -148,7 +168,10 @@ const Bpjs = () => {
 
       {/* Tombol Konfirmasi */}
       {isBpjsNumberValid && (
-        <TouchableOpacity style={styles.paymentButton} onPress={handlePayment}>
+        <TouchableOpacity
+          style={[styles.paymentButton, isDarkMode && styles.darkPaymentButton]}
+          onPress={handlePayment}
+        >
           <Text style={styles.paymentButtonText}>Konfirmasi Pembayaran</Text>
         </TouchableOpacity>
       )}
@@ -162,6 +185,9 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 55,
     backgroundColor: "#c7e2f7", // Light blue background color similar to HomeScreen
+  },
+  darkContainer: {
+    backgroundColor: "#333", // Dark mode background color
   },
   header: {
     flexDirection: "row",
@@ -177,6 +203,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#16247d", // Dark blue header text
+  },
+  darkText: {
+    color: "#fff", // White text for dark mode
   },
   inputContainer: {
     marginBottom: 20,
@@ -195,13 +224,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#b0d4f1", // Blue border color
   },
+  darkInputWrapper: {
+    backgroundColor: "#444", // Dark mode input background
+    borderColor: "#666", // Dark mode border color
+  },
   input: {
     flex: 1,
     fontSize: 16,
     color: "#16247d", // Dark blue input text
-  },
-  icon: {
-    paddingHorizontal: 10,
   },
   nominalContainer: {
     marginTop: 10,
@@ -222,8 +252,15 @@ const styles = StyleSheet.create({
     height: 120,
     justifyContent: "center",
   },
+  darkNominalCard: {
+    backgroundColor: "#444", // Dark mode card background
+    borderColor: "#666", // Dark mode border color
+  },
   selectedCard: {
     backgroundColor: "#16247d", // Dark blue for selected card
+  },
+  darkSelectedCard: {
+    backgroundColor: "#555", // Dark mode selected card background
   },
   selectedText: {
     color: "#fff", // White text for selected card
@@ -251,6 +288,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#b0d4f1", // Light blue border for info box
   },
+  darkInfoContainer: {
+    backgroundColor: "#444", // Dark mode info panel background
+    borderColor: "#666", // Dark mode info panel border color
+  },
   infoIcon: {
     width: 40,
     height: 40,
@@ -277,6 +318,9 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 5,
     alignItems: "center",
+  },
+  darkPaymentButton: {
+    backgroundColor: "#555", // Dark mode payment button
   },
   paymentButtonText: {
     color: "#fff",

@@ -10,6 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useTheme } from "../Components/ThemeContext"; // Import useTheme for dark mode
 
 // Daftar nominal dan harga token listrik
 const listrikOptions = [
@@ -27,6 +28,7 @@ const listrikOptions = [
 
 const Listrik = () => {
   const navigation = useNavigation();
+  const { isDarkMode } = useTheme(); // Access dark mode state
   const [customerId, setCustomerId] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
   const [isCustomerIdValid, setIsCustomerIdValid] = useState(false);
@@ -59,25 +61,36 @@ const Listrik = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isDarkMode && styles.darkContainer]}>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <AntDesign name="arrowleft" size={24} color="#16247d" />
+          <AntDesign
+            name="arrowleft"
+            size={24}
+            color={isDarkMode ? "#fff" : "#16247d"} // Adjust icon color for dark mode
+          />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Token Listrik</Text>
+        <Text style={[styles.headerTitle, isDarkMode && styles.darkText]}>
+          Token Listrik
+        </Text>
       </View>
 
       {/* Input ID Pelanggan */}
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>ID Pelanggan</Text>
-        <View style={styles.inputWrapper}>
+        <Text style={[styles.label, isDarkMode && styles.darkText]}>
+          ID Pelanggan
+        </Text>
+        <View
+          style={[styles.inputWrapper, isDarkMode && styles.darkInputWrapper]}
+        >
           <TextInput
-            style={styles.input}
+            style={[styles.input, isDarkMode && styles.darkText]}
             placeholder="Contoh: 123456789012"
+            placeholderTextColor={isDarkMode ? "#ccc" : "#999"} // Adjust placeholder text color
             keyboardType="numeric"
             maxLength={12}
             value={customerId}
@@ -108,22 +121,42 @@ const Listrik = () => {
               return (
                 <View style={styles.nominalRow} key={index}>
                   <TouchableOpacity
-                    style={styles.nominalCard}
+                    style={[
+                      styles.nominalCard,
+                      isDarkMode && styles.darkNominalCard,
+                    ]}
                     onPress={() =>
                       handleNominalPress(option.nominal, option.harga)
                     }
                   >
-                    <Text style={styles.nominalText}>
+                    <Text
+                      style={[
+                        styles.nominalText,
+                        isDarkMode && styles.darkText,
+                      ]}
+                    >
                       {option.nominal.toLocaleString("id-ID")}
                     </Text>
-                    <Text style={styles.nominalHarga}>Harga</Text>
-                    <Text style={styles.hargaText}>
+                    <Text
+                      style={[
+                        styles.nominalHarga,
+                        isDarkMode && styles.darkText,
+                      ]}
+                    >
+                      Harga
+                    </Text>
+                    <Text
+                      style={[styles.hargaText, isDarkMode && styles.darkText]}
+                    >
                       Rp {option.harga.toLocaleString("id-ID")}
                     </Text>
                   </TouchableOpacity>
                   {listrikOptions[index + 1] && (
                     <TouchableOpacity
-                      style={styles.nominalCard}
+                      style={[
+                        styles.nominalCard,
+                        isDarkMode && styles.darkNominalCard,
+                      ]}
                       onPress={() =>
                         handleNominalPress(
                           listrikOptions[index + 1].nominal,
@@ -131,13 +164,30 @@ const Listrik = () => {
                         )
                       }
                     >
-                      <Text style={styles.nominalText}>
+                      <Text
+                        style={[
+                          styles.nominalText,
+                          isDarkMode && styles.darkText,
+                        ]}
+                      >
                         {listrikOptions[index + 1].nominal.toLocaleString(
                           "id-ID"
                         )}
                       </Text>
-                      <Text style={styles.nominalHarga}>Harga</Text>
-                      <Text style={styles.hargaText}>
+                      <Text
+                        style={[
+                          styles.nominalHarga,
+                          isDarkMode && styles.darkText,
+                        ]}
+                      >
+                        Harga
+                      </Text>
+                      <Text
+                        style={[
+                          styles.hargaText,
+                          isDarkMode && styles.darkText,
+                        ]}
+                      >
                         Rp{" "}
                         {listrikOptions[index + 1].harga.toLocaleString(
                           "id-ID"
@@ -154,15 +204,17 @@ const Listrik = () => {
 
       {/* Info Panel */}
       {!isCustomerIdValid && (
-        <View style={styles.infoContainer}>
+        <View
+          style={[styles.infoContainer, isDarkMode && styles.darkInfoContainer]}
+        >
           <Ionicons
             name="newspaper"
             size={30}
-            color="#16247d"
+            color={isDarkMode ? "#fff" : "#16247d"} // Adjust icon color for dark mode
             style={styles.infoIcon}
           />
           <View style={styles.infoTextContainer}>
-            <Text style={styles.infoText}>
+            <Text style={[styles.infoText, isDarkMode && styles.darkText]}>
               Masukkan ID pelanggan yang valid untuk menampilkan menu pembelian.
             </Text>
           </View>
@@ -179,6 +231,9 @@ const styles = StyleSheet.create({
     paddingTop: 55,
     backgroundColor: "#c7e2f7", // Light blue background color similar to HomeScreen
   },
+  darkContainer: {
+    backgroundColor: "#333", // Dark mode background color
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -193,6 +248,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#16247d", // Dark blue header text
+  },
+  darkText: {
+    color: "#fff", // White text for dark mode
   },
   inputContainer: {
     marginBottom: 20,
@@ -211,13 +269,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#b0d4f1", // Blue border color
   },
+  darkInputWrapper: {
+    backgroundColor: "#444", // Dark mode background for input
+    borderColor: "#666", // Dark mode border
+  },
   input: {
     flex: 1,
     fontSize: 16,
     color: "#16247d", // Dark blue input text
-  },
-  icon: {
-    paddingHorizontal: 10,
   },
   nominalContainer: {
     marginTop: 10,
@@ -237,6 +296,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
     height: 120,
     justifyContent: "center",
+  },
+  darkNominalCard: {
+    backgroundColor: "#444", // Dark mode background for nominal card
+    borderColor: "#666", // Dark mode border for nominal card
   },
   nominalText: {
     fontSize: 20,
@@ -260,6 +323,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: "#b0d4f1", // Light blue border for info box
+  },
+  darkInfoContainer: {
+    backgroundColor: "#444", // Dark mode background for info panel
+    borderColor: "#666", // Dark mode border for info panel
   },
   infoIcon: {
     width: 40,

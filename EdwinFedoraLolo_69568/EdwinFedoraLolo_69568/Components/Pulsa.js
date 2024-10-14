@@ -10,6 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useTheme } from "../Components/ThemeContext"; // Import useTheme for dark mode
 
 // Daftar operator berdasarkan prefix
 const operatorPrefix = {
@@ -57,6 +58,7 @@ const pulsaOptions = [
 
 const Pulsa = () => {
   const navigation = useNavigation();
+  const { isDarkMode } = useTheme(); // Use dark mode from theme context
   const [selectedTab, setSelectedTab] = React.useState("pulsa");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
@@ -108,25 +110,36 @@ const Pulsa = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isDarkMode && styles.darkContainer]}>
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => navigation.goBack()}
         >
-          <AntDesign name="arrowleft" size={24} color="black" />
+          <AntDesign
+            name="arrowleft"
+            size={24}
+            color={isDarkMode ? "#fff" : "black"} // Adjust icon color for dark mode
+          />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Pulsa & Paket Data</Text>
+        <Text style={[styles.headerTitle, isDarkMode && styles.darkText]}>
+          Pulsa & Paket Data
+        </Text>
       </View>
 
       {/* Input Nomor Ponsel */}
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Nomor Ponsel</Text>
-        <View style={styles.inputWrapper}>
+        <Text style={[styles.label, isDarkMode && styles.darkText]}>
+          Nomor Ponsel
+        </Text>
+        <View
+          style={[styles.inputWrapper, isDarkMode && styles.darkInputWrapper]}
+        >
           <TextInput
-            style={styles.input}
+            style={[styles.input, isDarkMode && styles.darkText]}
             placeholder="Contoh : 082370323318"
+            placeholderTextColor={isDarkMode ? "#ccc" : "#999"}
             keyboardType="numeric"
             maxLength={13}
             value={phoneNumber}
@@ -149,13 +162,19 @@ const Pulsa = () => {
       </View>
 
       {/* Tab Pilihan */}
-      <View style={styles.tabContainer}>
+      <View
+        style={[styles.tabContainer, isDarkMode && styles.darkTabContainer]}
+      >
         <TouchableOpacity
           style={[styles.tab, selectedTab === "pulsa" && styles.activeTab]}
           onPress={() => setSelectedTab("pulsa")}
         >
           <Text
-            style={[styles.tabText, selectedTab === "pulsa" && styles.textTab]}
+            style={[
+              styles.tabText,
+              selectedTab === "pulsa" && styles.textTab,
+              isDarkMode && styles.darkText,
+            ]}
           >
             Isi Pulsa
           </Text>
@@ -165,7 +184,11 @@ const Pulsa = () => {
           onPress={() => setSelectedTab("paket")}
         >
           <Text
-            style={[styles.tabText, selectedTab === "paket" && styles.textTab]}
+            style={[
+              styles.tabText,
+              selectedTab === "paket" && styles.textTab,
+              isDarkMode && styles.darkText,
+            ]}
           >
             Paket Data
           </Text>
@@ -181,22 +204,42 @@ const Pulsa = () => {
               return (
                 <View style={styles.nominalRow} key={index}>
                   <TouchableOpacity
-                    style={styles.nominalCard}
+                    style={[
+                      styles.nominalCard,
+                      isDarkMode && styles.darkNominalCard,
+                    ]}
                     onPress={() =>
                       handleNominalPress(option.nominal, option.harga)
                     }
                   >
-                    <Text style={styles.nominalText}>
+                    <Text
+                      style={[
+                        styles.nominalText,
+                        isDarkMode && styles.darkText,
+                      ]}
+                    >
                       {option.nominal.toLocaleString("id-ID")}
                     </Text>
-                    <Text style={styles.nominalHarga}>Harga</Text>
-                    <Text style={styles.hargaText}>
+                    <Text
+                      style={[
+                        styles.nominalHarga,
+                        isDarkMode && styles.darkText,
+                      ]}
+                    >
+                      Harga
+                    </Text>
+                    <Text
+                      style={[styles.hargaText, isDarkMode && styles.darkText]}
+                    >
                       Rp {option.harga.toLocaleString("id-ID")}
                     </Text>
                   </TouchableOpacity>
                   {pulsaOptions[index + 1] && (
                     <TouchableOpacity
-                      style={styles.nominalCard}
+                      style={[
+                        styles.nominalCard,
+                        isDarkMode && styles.darkNominalCard,
+                      ]}
                       onPress={() =>
                         handleNominalPress(
                           pulsaOptions[index + 1].nominal,
@@ -204,13 +247,30 @@ const Pulsa = () => {
                         )
                       }
                     >
-                      <Text style={styles.nominalText}>
+                      <Text
+                        style={[
+                          styles.nominalText,
+                          isDarkMode && styles.darkText,
+                        ]}
+                      >
                         {pulsaOptions[index + 1].nominal.toLocaleString(
                           "id-ID"
                         )}
                       </Text>
-                      <Text style={styles.nominalHarga}>Harga</Text>
-                      <Text style={styles.hargaText}>
+                      <Text
+                        style={[
+                          styles.nominalHarga,
+                          isDarkMode && styles.darkText,
+                        ]}
+                      >
+                        Harga
+                      </Text>
+                      <Text
+                        style={[
+                          styles.hargaText,
+                          isDarkMode && styles.darkText,
+                        ]}
+                      >
                         Rp{" "}
                         {pulsaOptions[index + 1].harga.toLocaleString("id-ID")}
                       </Text>
@@ -225,15 +285,17 @@ const Pulsa = () => {
 
       {/* Info Panel */}
       {!isPhoneNumberValid && (
-        <View style={styles.infoContainer}>
+        <View
+          style={[styles.infoContainer, isDarkMode && styles.darkInfoContainer]}
+        >
           <Ionicons
             name="newspaper"
             size={30}
-            color="black"
+            color={isDarkMode ? "#fff" : "black"} // Adjust icon color for dark mode
             style={styles.infoIcon}
           />
           <View style={styles.infoTextContainer}>
-            <Text style={styles.infoText}>
+            <Text style={[styles.infoText, isDarkMode && styles.darkText]}>
               Isi ID Pelanggan yang valid untuk menampilkan menu pembelian.
             </Text>
           </View>
@@ -250,6 +312,9 @@ const styles = StyleSheet.create({
     paddingTop: 55,
     backgroundColor: "#c7e2f7", // Light blue background color similar to HomeScreen
   },
+  darkContainer: {
+    backgroundColor: "#333", // Dark mode background color
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -264,6 +329,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#16247d", // Dark blue header text
+  },
+  darkText: {
+    color: "#fff", // White text for dark mode
   },
   inputContainer: {
     marginBottom: 20,
@@ -282,13 +350,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#b0d4f1", // Blue border color
   },
+  darkInputWrapper: {
+    backgroundColor: "#444", // Dark mode background for input
+    borderColor: "#666", // Dark mode border
+  },
   input: {
     flex: 1,
     fontSize: 16,
     color: "#16247d", // Dark blue input text
-  },
-  icon: {
-    paddingHorizontal: 10,
   },
   tabContainer: {
     flexDirection: "row",
@@ -296,6 +365,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 20,
     overflow: "hidden",
+  },
+  darkTabContainer: {
+    backgroundColor: "#444", // Dark mode background for tab section
   },
   tab: {
     flex: 1,
@@ -332,6 +404,10 @@ const styles = StyleSheet.create({
     height: 120,
     justifyContent: "center",
   },
+  darkNominalCard: {
+    backgroundColor: "#444", // Dark mode background for nominal card
+    borderColor: "#666", // Dark mode border for nominal card
+  },
   nominalText: {
     fontSize: 20,
     fontWeight: "bold",
@@ -354,6 +430,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: "#b0d4f1", // Light blue border for info box
+  },
+  darkInfoContainer: {
+    backgroundColor: "#444", // Dark mode background for info panel
+    borderColor: "#666", // Dark mode border for info panel
   },
   infoIcon: {
     width: 40,

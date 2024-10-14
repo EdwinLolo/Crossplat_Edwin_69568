@@ -1,17 +1,19 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const Transaksi_Gagal = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  const { date } = route.params || {};
 
-  useEffect(() => {
-    // Timeout untuk kembali setelah beberapa detik jika diperlukan
-    const timer = setTimeout(() => {
-      navigation.navigate("Home"); // Kembali ke halaman Home setelah waktu tertentu
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, [navigation]);
+  // useEffect(() => {
+  //   // Timeout untuk kembali setelah beberapa detik jika diperlukan
+  //   const timer = setTimeout(() => {
+  //     navigation.navigate("Home"); // Kembali ke halaman Home setelah waktu tertentu
+  //   }, 5000);
+  //   return () => clearTimeout(timer);
+  // }, [navigation]);
 
   return (
     <View style={styles.container}>
@@ -25,7 +27,7 @@ const Transaksi_Gagal = () => {
       <Text style={styles.title}>Pembelian Gagal!</Text>
 
       {/* Informasi pembayaran */}
-      <Text style={styles.date}>04 Mei 2023, 21:49 PM</Text>
+      <Text style={styles.date}>{date}</Text>
 
       {/* Tombol tutup */}
       <TouchableOpacity
