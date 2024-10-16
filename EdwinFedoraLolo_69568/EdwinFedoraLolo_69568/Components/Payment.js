@@ -216,7 +216,7 @@ const Payment = () => {
                 BPJS
               </Text>
               <Text style={[styles.subtitle, isDarkMode && styles.darkText]}>
-                {customerId}
+                {bpjsNumber}
               </Text>
             </View>
             <Text style={[styles.amount, isDarkMode && styles.darkText]}>
@@ -411,7 +411,7 @@ const styles = StyleSheet.create({
     left: 20,
     right: 20,
     height: 50,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "blue",
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -420,7 +420,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#555", // Dark mode background for button
   },
   buttonText: {
-    color: "#000",
+    color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
   },
