@@ -151,8 +151,8 @@ export default function BottomNavbar() {
             return (
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <Image
-                  source={require("./assets/profile.png")} // Use require to load the image
-                  style={{ width: 24, height: 24 }} // Add style to control the size of the image
+                  source={require("./assets/profile.png")}
+                  style={{ width: 24, height: 24 }}
                 />
                 <Text
                   style={{

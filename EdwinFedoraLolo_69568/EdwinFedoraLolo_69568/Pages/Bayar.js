@@ -2,11 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { useTheme } from "../Components/ThemeContext"; // Import useTheme
+import { useTheme } from "../Components/ThemeContext";
 
 const Bayar = () => {
   const navigation = useNavigation();
-  const { isDarkMode } = useTheme(); // Access dark mode state
+  const { isDarkMode } = useTheme();
 
   return (
     <View style={[styles.container, isDarkMode && styles.darkContainer]}>
@@ -18,7 +18,7 @@ const Bayar = () => {
           <AntDesign
             name="arrowleft"
             size={24}
-            color={isDarkMode ? "#fff" : "#16247d"} // Adjust color for dark mode
+            color={isDarkMode ? "#fff" : "#16247d"}
           />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, isDarkMode && styles.darkText]}>
@@ -30,7 +30,7 @@ const Bayar = () => {
           Tunjukkan QR untuk menerima transfer
         </Text>
         <Image
-          source={require("../assets/Qris_BCA.jpg")} // Replace with the correct path to your QR image
+          source={require("../assets/Qris_BCA.jpg")}
           style={styles.qrImage}
         />
         <Text style={[styles.footer, isDarkMode && styles.darkText]}>
@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   darkContainer: {
-    backgroundColor: "#333", // Dark mode background color
+    backgroundColor: "#333",
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    height: 60, // Sesuaikan dengan kebutuhan tinggi header
+    height: 60,
   },
   backButton: {
     position: "absolute",
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     color: "#16247d",
   },
   darkText: {
-    color: "#fff", // White text for dark mode
+    color: "#fff",
   },
   bodyDetail: {
     flex: 1,

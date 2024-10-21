@@ -4,9 +4,10 @@ import { Avatar } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import { useTheme } from "../Components/ThemeContext"; // Import useTheme for dark mode
+import { useTheme } from "../Components/ThemeContext";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
-// Daftar prefix untuk setiap operator
 const operatorPrefix = {
   Telkomsel: [
     "0811",
@@ -36,13 +37,12 @@ const operatorPrefix = {
   ],
 };
 
-// Fungsi untuk mendapatkan ikon operator berdasarkan prefix nomor telepon
 const getOperatorIcon = (prefix, phoneNumber) => {
   if (operatorPrefix.Telkomsel.includes(prefix)) {
     return (
       <>
         <Image
-          source={require("../assets/telkomsel.jpeg")} // Example banner, use your actual asset
+          source={require("../assets/telkomsel.jpeg")}
           style={{ width: 40, height: 40, borderRadius: 15 }}
         />
         <View style={styles.infoTextContainer}>
@@ -55,7 +55,7 @@ const getOperatorIcon = (prefix, phoneNumber) => {
     return (
       <>
         <Image
-          source={require("../assets/indosat.png")} // Example banner, use your actual asset
+          source={require("../assets/indosat.png")}
           style={{ width: 40, height: 40, borderRadius: 15 }}
         />
         <View style={styles.infoTextContainer}>
@@ -68,7 +68,7 @@ const getOperatorIcon = (prefix, phoneNumber) => {
     return (
       <>
         <Image
-          source={require("../assets/XL.png")} // Example banner, use your actual asset
+          source={require("../assets/XL.png")}
           style={{ width: 40, height: 40, borderRadius: 15 }}
         />
         <View style={styles.infoTextContainer}>
@@ -81,7 +81,7 @@ const getOperatorIcon = (prefix, phoneNumber) => {
     return (
       <>
         <Image
-          source={require("../assets/Axis.png")} // Example banner, use your actual asset
+          source={require("../assets/Axis.png")}
           style={{ width: 40, height: 40, borderRadius: 15 }}
         />
         <View style={styles.infoTextContainer}>
@@ -94,7 +94,7 @@ const getOperatorIcon = (prefix, phoneNumber) => {
     return (
       <>
         <Image
-          source={require("../assets/Tri.jpeg")} // Example banner, use your actual asset
+          source={require("../assets/Tri.jpeg")}
           style={{ width: 40, height: 40, borderRadius: 15 }}
         />
         <View style={styles.infoTextContainer}>
@@ -107,7 +107,7 @@ const getOperatorIcon = (prefix, phoneNumber) => {
     return (
       <>
         <Image
-          source={require("../assets/smartfren.jpg")} // Example banner, use your actual asset
+          source={require("../assets/smartfren.jpg")}
           style={{ width: 40, height: 40, borderRadius: 15 }}
         />
         <View style={styles.infoTextContainer}>
@@ -117,11 +117,10 @@ const getOperatorIcon = (prefix, phoneNumber) => {
       </>
     );
   } else {
-    return <Ionicons name="ios-cellular" size={40} color="#000" />; // Default icon
+    return <Ionicons name="ios-cellular" size={40} color="#000" />;
   }
 };
 
-// Fungsi untuk mendapatkan nama operator berdasarkan prefix nomor telepon
 const getOperatorName = (prefix) => {
   if (operatorPrefix.Telkomsel.includes(prefix)) {
     return "Telkomsel";
@@ -143,7 +142,7 @@ const getOperatorName = (prefix) => {
 const Payment = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { isDarkMode } = useTheme(); // Access dark mode state
+  const { isDarkMode } = useTheme();
 
   const { nominal, harga, phoneNumber, customerId, type, bpjsNumber } =
     route.params;
@@ -162,7 +161,7 @@ const Payment = () => {
           <AntDesign
             name="arrowleft"
             size={24}
-            color={isDarkMode ? "#fff" : "black"} // Adjust icon color for dark mode
+            color={isDarkMode ? "#fff" : "black"}
           />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, isDarkMode && styles.darkText]}>
@@ -190,7 +189,11 @@ const Payment = () => {
               isDarkMode && styles.darkInfoContainer,
             ]}
           >
-            <Avatar.Icon size={40} icon="cellphone" />
+            <MaterialCommunityIcons
+              name="lightning-bolt"
+              size={40}
+              color="black"
+            />
             <View style={styles.infoTextContainer}>
               <Text style={[styles.title, isDarkMode && styles.darkText]}>
                 Token Listrik
@@ -210,7 +213,7 @@ const Payment = () => {
               isDarkMode && styles.darkInfoContainer,
             ]}
           >
-            <Avatar.Icon size={40} icon="cellphone" />
+            <MaterialIcons name="health-and-safety" size={40} color="black" />
             <View style={styles.infoTextContainer}>
               <Text style={[styles.title, isDarkMode && styles.darkText]}>
                 BPJS
@@ -310,7 +313,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   darkContainer: {
-    backgroundColor: "#333", // Dark mode background color
+    backgroundColor: "#333",
   },
   header: {
     flexDirection: "row",
@@ -322,7 +325,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   darkHeader: {
-    borderBottomColor: "#666", // Dark mode border color for header
+    borderBottomColor: "#666",
   },
   backButton: {
     position: "absolute",
@@ -333,7 +336,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   darkText: {
-    color: "#fff", // White text for dark mode
+    color: "#fff",
   },
   infoContainer: {
     flexDirection: "row",
@@ -344,7 +347,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   darkInfoContainer: {
-    backgroundColor: "#444", // Dark mode background for info container
+    backgroundColor: "#444",
   },
   infoTextContainer: {
     flex: 1,
@@ -377,7 +380,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   darkPaymentMethod: {
-    backgroundColor: "#444", // Dark mode background for payment method
+    backgroundColor: "#444",
   },
   paymentTextContainer: {
     flex: 1,
@@ -417,7 +420,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   darkButton: {
-    backgroundColor: "#555", // Dark mode background for button
+    backgroundColor: "#555",
   },
   buttonText: {
     color: "#fff",
@@ -425,7 +428,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   darkButtonText: {
-    color: "#fff", // White text for dark mode button
+    color: "#fff",
   },
 });
 

@@ -7,10 +7,10 @@ import {
   Switch,
   TouchableOpacity,
 } from "react-native";
-import { useTheme } from "../Components/ThemeContext"; // Import the theme context
+import { useTheme } from "../Components/ThemeContext";
 
 const Profile = () => {
-  const { isDarkMode, toggleDarkMode } = useTheme(); // Use the theme context
+  const { isDarkMode, toggleDarkMode } = useTheme();
   const [language, setLanguage] = useState("EN");
 
   const toggleLanguage = () => setLanguage(language === "EN" ? "ID" : "EN");
@@ -23,7 +23,7 @@ const Profile = () => {
       <View style={styles.profileContainer}>
         <Image
           style={styles.profileImage}
-          source={require("../assets/Vincent.jpeg")} // Replace with your image URL or local image
+          source={require("../assets/Edwin.jpg")}
         />
         <Text style={[styles.name, isDarkMode && styles.darkText]}>
           Edwin Fedora Lolo

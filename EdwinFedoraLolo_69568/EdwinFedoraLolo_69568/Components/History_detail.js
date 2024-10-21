@@ -2,13 +2,13 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
-import { useTheme } from "../Components/ThemeContext"; // Import useTheme
+import { useTheme } from "../Components/ThemeContext";
 
 const HistoryDetail = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const { transaction } = route.params || {};
-  const { isDarkMode } = useTheme(); // Use the theme context
+  const { isDarkMode } = useTheme();
 
   console.log(transaction);
 
@@ -39,7 +39,7 @@ const HistoryDetail = () => {
         <View style={styles.HistoryLogo}>
           <Image
             style={styles.UnionImage}
-            source={require("../assets/union.png")} // Replace with your image URL or local image
+            source={require("../assets/union.png")}
           />
           <Text style={[styles.UnionName, isDarkMode && styles.darkText]}>
             Union-X
@@ -147,17 +147,17 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center", // Untuk membuat teks di tengah
-    height: 60, // Sesuaikan dengan kebutuhan tinggi header
+    justifyContent: "center",
+    height: 60,
   },
   backButton: {
-    position: "absolute", // Pastikan back button berada di kiri
-    left: 15, // Atur jarak kiri dari tepi layar
+    position: "absolute",
+    left: 15,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#16247d", // Dark blue header text
+    color: "#16247d",
   },
   darkText: {
     color: "#fff",

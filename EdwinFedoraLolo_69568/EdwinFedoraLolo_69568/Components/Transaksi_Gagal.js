@@ -7,29 +7,20 @@ const Transaksi_Gagal = () => {
   const route = useRoute();
   const { date } = route.params || {};
 
-  // useEffect(() => {
-  //   // Timeout untuk kembali setelah beberapa detik jika diperlukan
-  //   const timer = setTimeout(() => {
-  //     navigation.navigate("Home"); // Kembali ke halaman Home setelah waktu tertentu
-  //   }, 5000);
-  //   return () => clearTimeout(timer);
-  // }, [navigation]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate("Home");
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
-      {/* Gambar checkmark */}
-      <Image
-        source={require("../assets/Fail.png")} // Sesuaikan path gambar
-        style={styles.checkmark}
-      />
+      <Image source={require("../assets/Fail.png")} style={styles.checkmark} />
 
-      {/* Judul transaksi gagal */}
       <Text style={styles.title}>Pembelian Gagal!</Text>
-
-      {/* Informasi pembayaran */}
       <Text style={styles.date}>{date}</Text>
 
-      {/* Tombol tutup */}
       <TouchableOpacity
         style={styles.buttonContainer}
         onPress={() => navigation.navigate("Home")}
@@ -43,7 +34,7 @@ const Transaksi_Gagal = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F72F2F", // Warna biru muda
+    backgroundColor: "#F72F2F",
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,

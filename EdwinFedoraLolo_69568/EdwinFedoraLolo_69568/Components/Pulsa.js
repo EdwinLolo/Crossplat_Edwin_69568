@@ -10,7 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useTheme } from "../Components/ThemeContext"; // Import useTheme for dark mode
+import { useTheme } from "../Components/ThemeContext";
 
 // Daftar operator berdasarkan prefix
 const operatorPrefix = {
@@ -58,7 +58,7 @@ const pulsaOptions = [
 
 const Pulsa = () => {
   const navigation = useNavigation();
-  const { isDarkMode } = useTheme(); // Use dark mode from theme context
+  const { isDarkMode } = useTheme();
   const [selectedTab, setSelectedTab] = React.useState("pulsa");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
@@ -120,7 +120,7 @@ const Pulsa = () => {
           <AntDesign
             name="arrowleft"
             size={24}
-            color={isDarkMode ? "#fff" : "black"} // Adjust icon color for dark mode
+            color={isDarkMode ? "#fff" : "black"}
           />
         </TouchableOpacity>
         <Text style={[styles.headerTitle, isDarkMode && styles.darkText]}>
@@ -161,7 +161,6 @@ const Pulsa = () => {
         ) : null}
       </View>
 
-      {/* Tab Pilihan */}
       <View
         style={[styles.tabContainer, isDarkMode && styles.darkTabContainer]}
       >
@@ -195,12 +194,10 @@ const Pulsa = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Daftar Nominal Pulsa (Tampilkan jika nomor valid) */}
       {isPhoneNumberValid && selectedTab === "pulsa" && (
         <ScrollView style={styles.nominalContainer}>
           {pulsaOptions.map((option, index) => {
             if (index % 2 === 0) {
-              // Setiap dua item dibungkus dalam satu row
               return (
                 <View style={styles.nominalRow} key={index}>
                   <TouchableOpacity
@@ -283,7 +280,6 @@ const Pulsa = () => {
         </ScrollView>
       )}
 
-      {/* Info Panel */}
       {!isPhoneNumberValid && (
         <View
           style={[styles.infoContainer, isDarkMode && styles.darkInfoContainer]}
@@ -291,7 +287,7 @@ const Pulsa = () => {
           <Ionicons
             name="newspaper"
             size={30}
-            color={isDarkMode ? "#fff" : "black"} // Adjust icon color for dark mode
+            color={isDarkMode ? "#fff" : "black"}
             style={styles.infoIcon}
           />
           <View style={styles.infoTextContainer}>
@@ -310,64 +306,64 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     paddingTop: 55,
-    backgroundColor: "#c7e2f7", // Light blue background color similar to HomeScreen
+    backgroundColor: "#c7e2f7",
   },
   darkContainer: {
-    backgroundColor: "#333", // Dark mode background color
+    backgroundColor: "#333",
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center", // Untuk membuat teks di tengah
-    height: 60, // Sesuaikan dengan kebutuhan tinggi header
+    justifyContent: "center",
+    height: 60,
   },
   backButton: {
-    position: "absolute", // Pastikan back button berada di kiri
-    left: 15, // Atur jarak kiri dari tepi layar
+    position: "absolute",
+    left: 15,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#16247d", // Dark blue header text
+    color: "#16247d",
   },
   darkText: {
-    color: "#fff", // White text for dark mode
+    color: "#fff",
   },
   inputContainer: {
     marginBottom: 20,
   },
   label: {
     fontSize: 18,
-    color: "#16247d", // Dark blue label to match HomeScreen theme
+    color: "#16247d",
     marginBottom: 10,
   },
   inputWrapper: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#f3f9ff", // Light blue background for input
+    backgroundColor: "#f3f9ff",
     padding: 10,
-    borderRadius: 20, // Rounded corners to match HomeScreen
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: "#b0d4f1", // Blue border color
+    borderColor: "#b0d4f1",
   },
   darkInputWrapper: {
-    backgroundColor: "#444", // Dark mode background for input
-    borderColor: "#666", // Dark mode border
+    backgroundColor: "#444",
+    borderColor: "#666",
   },
   input: {
     flex: 1,
     fontSize: 16,
-    color: "#16247d", // Dark blue input text
+    color: "#16247d",
   },
   tabContainer: {
     flexDirection: "row",
-    backgroundColor: "#b0d4f1", // Light blue background for tab section
+    backgroundColor: "#b0d4f1",
     borderRadius: 20,
     marginBottom: 20,
     overflow: "hidden",
   },
   darkTabContainer: {
-    backgroundColor: "#444", // Dark mode background for tab section
+    backgroundColor: "#444",
   },
   tab: {
     flex: 1,
@@ -376,13 +372,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   activeTab: {
-    backgroundColor: "#16247d", // Dark blue active tab background
+    backgroundColor: "#16247d",
   },
   textTab: {
-    color: "#fff", // White text for active tab
+    color: "#fff",
   },
   tabText: {
-    color: "#16247d", // Dark blue for inactive tab
+    color: "#16247d",
     fontSize: 16,
   },
   nominalContainer: {
@@ -394,29 +390,29 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   nominalCard: {
-    backgroundColor: "#f3f9ff", // Light blue background for card
+    backgroundColor: "#f3f9ff",
     padding: 20,
-    borderRadius: 20, // Rounded corners to match HomeScreen
+    borderRadius: 20,
     borderWidth: 1,
-    borderColor: "#b0d4f1", // Light blue border
+    borderColor: "#b0d4f1",
     flex: 1,
     marginHorizontal: 5,
     height: 120,
     justifyContent: "center",
   },
   darkNominalCard: {
-    backgroundColor: "#444", // Dark mode background for nominal card
-    borderColor: "#666", // Dark mode border for nominal card
+    backgroundColor: "#444",
+    borderColor: "#666",
   },
   nominalText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#16247d", // Dark blue text
+    color: "#16247d",
   },
   nominalHarga: {
     marginTop: 5,
     fontSize: 14,
-    color: "#16247d", // Matching dark blue for pricing text
+    color: "#16247d",
   },
   hargaText: {
     fontSize: 14,
@@ -426,14 +422,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     padding: 15,
-    backgroundColor: "#f3f9ff", // Light blue background for info panel
+    backgroundColor: "#f3f9ff",
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: "#b0d4f1", // Light blue border for info box
+    borderColor: "#b0d4f1",
   },
   darkInfoContainer: {
-    backgroundColor: "#444", // Dark mode background for info panel
-    borderColor: "#666", // Dark mode border for info panel
+    backgroundColor: "#444",
+    borderColor: "#666",
   },
   infoIcon: {
     width: 40,
@@ -445,14 +441,14 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: 14,
-    color: "#16247d", // Dark blue for informational text
+    color: "#16247d",
   },
   errorText: {
-    color: "#d32f2f", // Red for error messages
+    color: "#d32f2f",
     marginTop: 5,
   },
   validText: {
-    color: "#388e3c", // Green for valid messages
+    color: "#388e3c",
     marginTop: 5,
   },
 });

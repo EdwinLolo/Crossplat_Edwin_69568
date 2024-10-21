@@ -7,31 +7,23 @@ const Transaksi_Berhasil = () => {
   const route = useRoute();
   const { harga, date } = route.params || {};
 
-  // useEffect(() => {
-  //   // Timeout untuk kembali setelah beberapa detik jika diperlukan
-  //   const timer = setTimeout(() => {
-  //     navigation.navigate("Home"); // Kembali ke halaman Home setelah waktu tertentu
-  //   }, 5000);
-  //   return () => clearTimeout(timer);
-  // }, [navigation]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate("Home");
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
-      {/* Gambar checkmark */}
-      <Image
-        source={require("../assets/Check.png")} // Sesuaikan path gambar
-        style={styles.checkmark}
-      />
+      <Image source={require("../assets/Check.png")} style={styles.checkmark} />
 
-      {/* Judul transaksi berhasil */}
       <Text style={styles.title}>Pembelian Berhasil!</Text>
 
-      {/* Informasi pembayaran */}
       <Text style={styles.amount}>Pembayaran sebesar</Text>
       <Text style={styles.price}>Rp {harga?.toLocaleString("id-ID")}</Text>
       <Text style={styles.date}>{date}</Text>
 
-      {/* Informasi saldo */}
       <Text style={styles.balance}>
         Saldo kamu sudah ditarik, sisa saldo kamu sekarang Rp 983.500.
       </Text>
@@ -50,7 +42,7 @@ const Transaksi_Berhasil = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#B7E0FF", // Warna biru muda
+    backgroundColor: "#B7E0FF",
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,

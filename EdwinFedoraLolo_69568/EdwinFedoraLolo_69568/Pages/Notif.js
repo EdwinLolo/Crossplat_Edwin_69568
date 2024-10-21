@@ -7,15 +7,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useTransaction } from "../Components/TransactionContext"; // Import useTransaction
-import { useTheme } from "../Components/ThemeContext"; // Import useTheme for dark mode
+import { useTransaction } from "../Components/TransactionContext";
+import { useTheme } from "../Components/ThemeContext";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 const Notif = () => {
   const navigation = useNavigation();
-  const { history } = useTransaction(); // Ambil data riwayat transaksi dari context
-  const { isDarkMode } = useTheme(); // Use dark mode from theme context
+  const { history } = useTransaction();
+  const { isDarkMode } = useTheme();
 
   const handlePress = (transaction) => {
     navigation.navigate("HistoryDetail", { transaction });
@@ -31,7 +31,7 @@ const Notif = () => {
           <MaterialCommunityIcons
             name="clipboard-check-multiple-outline"
             size={100}
-            color={isDarkMode ? "#fff" : "#808080"} // Adjust icon color based on dark mode
+            color={isDarkMode ? "#fff" : "#808080"}
           />
           <Text style={[styles.emptyText, isDarkMode && styles.darkText]}>
             Tidak ada data transaksi
@@ -52,7 +52,7 @@ const Notif = () => {
                 <MaterialIcons
                   name="notifications-active"
                   size={24}
-                  color={isDarkMode ? "#fff" : "black"} // Adjust icon color based on dark mode
+                  color={isDarkMode ? "#fff" : "black"}
                   style={{ marginRight: 10 }}
                 />
                 <View style={{ flex: 1 }}>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f4f4f4",
   },
   darkContainer: {
-    backgroundColor: "#333", // Dark background color for dark mode
+    backgroundColor: "#333",
   },
   title: {
     fontSize: 20,
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   darkText: {
-    color: "#fff", // White text for dark mode
+    color: "#fff",
   },
   transactionContainer: {
     flex: 1,
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   darkTransactionContainer: {
-    backgroundColor: "#444", // Dark mode background for transaction containers
+    backgroundColor: "#444",
   },
   emptyContainer: {
     flex: 1,

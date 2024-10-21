@@ -8,14 +8,14 @@ import {
   Alert,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useTransaction } from "./TransactionContext"; // Import useTransaction
-import { useTheme } from "../Components/ThemeContext"; // Import useTheme for dark mode
+import { useTransaction } from "./TransactionContext";
+import { useTheme } from "../Components/ThemeContext";
 
 const Pin = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { addTransaction } = useTransaction(); // Ambil fungsi addTransaction dari context
-  const { isDarkMode } = useTheme(); // Access dark mode state
+  const { addTransaction } = useTransaction();
+  const { isDarkMode } = useTheme();
 
   const {
     phoneNumber,
@@ -27,11 +27,11 @@ const Pin = () => {
     bpjsNumber,
   } = route.params || {};
 
-  const [pin, setPin] = useState(""); // PIN yang dimasukkan
-  const [attempts, setAttempts] = useState(0); // State untuk melacak percobaan PIN
-  const maxAttempts = 3; // Batas maksimal percobaan
-  const correctPin = "080704"; // PIN yang benar
-  const [isError, setIsError] = useState(false); // Untuk menandai jika PIN salah
+  const [pin, setPin] = useState("");
+  const [attempts, setAttempts] = useState(0);
+  const maxAttempts = 3;
+  const correctPin = "080704";
+  const [isError, setIsError] = useState(false);
 
   const handlePinSubmit = () => {
     const formattedDate = new Date().toLocaleString();
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f4f4f4",
   },
   darkContainer: {
-    backgroundColor: "#333", // Dark mode background color
+    backgroundColor: "#333",
   },
   title: {
     fontSize: 22,
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   darkText: {
-    color: "#fff", // White text for dark mode
+    color: "#fff",
   },
   subtitle: {
     fontSize: 16,
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     color: "red",
   },
   darkErrorText: {
-    color: "#ff6666", // Lighter red for better contrast in dark mode
+    color: "#ff6666",
   },
   dotsContainer: {
     flexDirection: "row",
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   darkButton: {
-    backgroundColor: "#555", // Dark mode button background
+    backgroundColor: "#555",
   },
   buttonText: {
     color: "#fff",
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   darkButtonText: {
-    color: "#ddd", // Slightly dimmed white for dark mode button text
+    color: "#ddd",
   },
 });
 

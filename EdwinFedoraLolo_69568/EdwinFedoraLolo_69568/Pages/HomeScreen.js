@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useTheme } from "../Components/ThemeContext"; // Import useTheme
+import { useTheme } from "../Components/ThemeContext";
 
 // Import Icons
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -17,7 +17,7 @@ import Feather from "@expo/vector-icons/Feather";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const { isDarkMode } = useTheme(); // Access dark mode state
+  const { isDarkMode } = useTheme();
 
   return (
     <ScrollView
@@ -174,7 +174,7 @@ const HomeScreen = () => {
           style={[styles.promoBanner, isDarkMode && styles.darkServiceItem]}
         >
           <Image
-            source={require("../assets/promo.jpg")} // Example banner, use your actual asset
+            source={require("../assets/promo.jpg")}
             style={styles.promoImage}
           />
         </View>
@@ -186,11 +186,11 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#c7e2f7", // Light blue background color
+    backgroundColor: "#c7e2f7",
     paddingTop: 55,
   },
   darkContainer: {
-    backgroundColor: "#333", // Dark mode background
+    backgroundColor: "#333",
   },
   header: {
     flexDirection: "row",
@@ -207,16 +207,16 @@ const styles = StyleSheet.create({
     fontSize: 28,
     marginLeft: 10,
     fontWeight: "bold",
-    color: "#16247d", // Darker blue for text
+    color: "#16247d",
   },
   darkText: {
-    color: "#fff", // Text color for dark mode
+    color: "#fff",
   },
   userContainer: {
     paddingHorizontal: 20,
   },
   userInfoContainer: {
-    backgroundColor: "#b0d4f1", // Slightly darker blue for user info
+    backgroundColor: "#b0d4f1",
     borderRadius: 20,
     height: 100,
     flex: 1,
@@ -224,11 +224,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   darkUserInfoContainer: {
-    backgroundColor: "#444", // Dark mode user info container
+    backgroundColor: "#444",
   },
   userName: {
     fontSize: 20,
-    color: "#16247d", // Dark blue text
+    color: "#16247d",
   },
   accountNumber: {
     fontSize: 22,
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   actionText: {
-    color: "#16247d", // Dark blue for action button text
+    color: "#16247d",
     marginTop: 5,
   },
   buttonShadow: {
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     height: 100,
   },
   darkServiceItem: {
-    backgroundColor: "#555", // Dark mode for service items
+    backgroundColor: "#555",
   },
   serviceText: {
     color: "#16247d",
