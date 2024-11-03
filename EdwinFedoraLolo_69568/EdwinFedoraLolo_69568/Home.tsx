@@ -1,74 +1,53 @@
+// Home.tsx
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  StyleSheet,
-} from "react-native";
+import { View, Text, Button, FlatList, TouchableOpacity } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "./types";
 import { getPosts } from "./Services/axios";
 
-export default function Home() {
-  const [posts, setPosts] = useState([]);
-  const navigation = useNavigation();
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, "Home">;
 
-  const fetchPosts = async () => {
-    try {
-      const res = await getPosts();
-      if (res.status === 200) {
-        setPosts(res.data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+const Home = () => {
+  const navigation = useNavigation<HomeScreenNavigationProp>();
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    const fetchPosts = async () => {
+      const data = await getPosts();
+      setPosts(data);
+    };
     fetchPosts();
   }, []);
 
-  const handleNavigateToForm = (post) => {
-    navigation.navigate("Forms", { post }););
-  };
-
   return (
-    <View style={styles.container}>
+    <View>
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
-            style={styles.card}
-            onPress={() => handleNavigateToForm(item)}
+            onPress={() => navigation.navigate("Forms", { post: item })}
+            style={{
+              padding: 16,
+              marginVertical: 8,
+              backgroundColor: "#f9f9f9",
+              borderRadius: 8,
+              shadowColor: "#000",
+              shadowOpacity: 0.1,
+              shadowOffset: { width: 0, height: 2 },
+              elevation: 2,
+            }}
           >
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.body}>{item.body}</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 16 }}>
+              {item.title}
+            </Text>
+            <Text>{item.body}</Text>
           </TouchableOpacity>
         )}
       />
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: "#fff",
-  },
-  card: {
-    padding: 15,
-    marginVertical: 8,
-    borderRadius: 5,
-    backgroundColor: "#f9f9f9",
-  },
-  title: {
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  body: {
-    fontSize: 14,
-    color: "#333",
-  },
-});
+export default Home;

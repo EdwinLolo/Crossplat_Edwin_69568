@@ -1,55 +1,69 @@
+// Forms.tsx
 import React, { useState } from "react";
-import { View, TextInput, Button, StyleSheet } from "react-native";
+import { View, TextInput, Button, Alert } from "react-native";
+import { RouteProp, useRoute, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "./types";
 import { updatePost } from "./Services/axios";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-export default function Forms() {
-  const route = useRoute();
-  const navigation = useNavigation();
+type FormsScreenRouteProp = RouteProp<RootStackParamList, "Forms">;
+type FormsScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  "Forms"
+>;
+
+const Forms = () => {
+  const route = useRoute<FormsScreenRouteProp>();
+  const navigation = useNavigation<FormsScreenNavigationProp>();
+
   const { post } = route.params;
-
   const [title, setTitle] = useState(post.title);
   const [body, setBody] = useState(post.body);
 
   const handleUpdate = async () => {
     try {
-      const res = await updatePost(post.id, { title, body });
-      if (res.status === 200) {
-        navigation.goBack(); // Return to the Home screen
-      }
+      await updatePost(post.id, { title, body });
+      Alert.alert("Success", "Post updated successfully", [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("Home"),
+        },
+      ]);
     } catch (error) {
-      console.error("Error updating post:", error);
+      Alert.alert("Error", "Failed to update post");
     }
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{ padding: 16 }}>
       <TextInput
-        style={styles.input}
         value={title}
         onChangeText={setTitle}
         placeholder="Title"
+        style={{
+          marginBottom: 16,
+          padding: 8,
+          borderColor: "#ddd",
+          borderWidth: 1,
+          borderRadius: 4,
+        }}
       />
       <TextInput
-        style={styles.input}
         value={body}
         onChangeText={setBody}
         placeholder="Body"
+        style={{
+          marginBottom: 16,
+          padding: 8,
+          borderColor: "#ddd",
+          borderWidth: 1,
+          borderRadius: 4,
+        }}
         multiline
       />
       <Button title="Update Post" onPress={handleUpdate} />
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  input: {
-    marginBottom: 20,
-    padding: 10,
-    borderBottomWidth: 1,
-  },
-});
+export default Forms;
