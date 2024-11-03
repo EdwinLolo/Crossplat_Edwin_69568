@@ -1,6 +1,5 @@
-// Home.tsx
 import React, { useEffect, useState } from "react";
-import { View, Text, Button, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "./types";
@@ -20,6 +19,16 @@ const Home = () => {
     fetchPosts();
   }, []);
 
+  const updatePostInState = (updatedPost: {
+    id: number;
+    title: string;
+    body: string;
+  }) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => (post.id === updatedPost.id ? updatedPost : post))
+    );
+  };
+
   return (
     <View>
       <FlatList
@@ -27,7 +36,12 @@ const Home = () => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate("Forms", { post: item })}
+            onPress={() =>
+              navigation.navigate("Forms", {
+                post: item,
+                updatePost: updatePostInState,
+              })
+            }
             style={{
               padding: 16,
               marginVertical: 8,

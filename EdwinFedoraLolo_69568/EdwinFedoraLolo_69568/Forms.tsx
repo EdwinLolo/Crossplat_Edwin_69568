@@ -1,9 +1,8 @@
-// Forms.tsx
 import React, { useState } from "react";
 import { View, TextInput, Button, Alert } from "react-native";
 import { RouteProp, useRoute, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "./types";
-import { updatePost } from "./Services/axios";
+import { updatePost as updatePostOnServer } from "./Services/axios";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 type FormsScreenRouteProp = RouteProp<RootStackParamList, "Forms">;
@@ -16,13 +15,16 @@ const Forms = () => {
   const route = useRoute<FormsScreenRouteProp>();
   const navigation = useNavigation<FormsScreenNavigationProp>();
 
-  const { post } = route.params;
+  const { post, updatePost } = route.params;
   const [title, setTitle] = useState(post.title);
   const [body, setBody] = useState(post.body);
 
   const handleUpdate = async () => {
     try {
-      await updatePost(post.id, { title, body });
+      const responsePost = await updatePostOnServer(post.id, { title, body });
+
+      updatePost(responsePost);
+
       Alert.alert("Success", "Post updated successfully", [
         {
           text: "OK",

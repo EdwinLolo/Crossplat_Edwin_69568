@@ -1,11 +1,10 @@
-// App.js
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "./Home";
 import Forms from "./Forms";
-import { RootStackParamList } from "./types"; // New import for TypeScript
+import { RootStackParamList } from "./types";
 
-const Stack = createStackNavigator<RootStackParamList>(); // Add TypeScript type
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
