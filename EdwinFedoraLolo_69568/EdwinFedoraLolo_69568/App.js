@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Button, View, Text, Image } from "react-native";
+import { Button, View, Text, Image, Alert } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as MediaLibrary from "expo-media-library";
 
 export default function App() {
   const [uri, setUri] = useState("");
@@ -15,7 +16,7 @@ export default function App() {
 
     if (!result.canceled && result.assets && result.assets.length > 0) {
       setUri(result.assets[0].uri);
-      console.log("Image selected from gallery:", result.assets[0].uri); // Updated log statement
+      console.log("Image selected from gallery:", result.assets[0].uri);
     }
   };
 
@@ -31,10 +32,35 @@ export default function App() {
 
       if (!result.canceled && result.assets && result.assets.length > 0) {
         setUri(result.assets[0].uri);
-        console.log("Image captured from camera:", result.assets[0].uri); // Updated log statement
+        console.log("Image captured from camera:", result.assets[0].uri);
       }
     } else {
       alert("Camera permission is required to use the camera.");
+    }
+  };
+
+  const saveImage = async () => {
+    if (!uri) {
+      Alert.alert("No image", "Please select or capture an image first.");
+      return;
+    }
+
+    const { status } = await MediaLibrary.requestPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert(
+        "Permission Denied",
+        "Please allow media library access to save images."
+      );
+      return;
+    }
+
+    try {
+      await MediaLibrary.createAssetAsync(uri);
+      Alert.alert("Success", "Image saved to Pictures folder!");
+      console.log("Image saved:", uri);
+    } catch (error) {
+      Alert.alert("Error", "Failed to save image.");
+      console.error(error);
     }
   };
 
@@ -43,6 +69,7 @@ export default function App() {
       <Text>Camera and Gallery Access</Text>
       <Button title="Open Gallery" onPress={openImagePicker} />
       <Button title="Open Camera" onPress={handleCameraLaunch} />
+      <Button title="Save Image to Pictures" onPress={saveImage} />
       {uri ? (
         <Image
           source={{ uri }}
