@@ -18,10 +18,35 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ],
+      "package": "com.anonymous.EdwinFedoraLolo_69568"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "allow $(PRODUCT_NAME) to access your microphone",
+          "isPermissionModalEnabled": true
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "allow $(PRODUCT_NAME) to access your photos",
+          "savePhotosPermission": "allow $(PRODUCT_NAME) to save photos",
+          "isPermissionModalEnabled": true
+        }
+      ]
+    ]
   }
 }
