@@ -66,10 +66,10 @@ export default function App() {
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Camera and Gallery Access</Text>
+      <Text>Edwin Fedora Lolo - 00000069568</Text>
       <Button title="Open Gallery" onPress={openImagePicker} />
       <Button title="Open Camera" onPress={handleCameraLaunch} />
-      <Button title="Save Image to Pictures" onPress={saveImage} />
+      <Button title="Create File" onPress={saveImage} />
       {uri ? (
         <Image
           source={{ uri }}
