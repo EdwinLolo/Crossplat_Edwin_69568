@@ -13,8 +13,9 @@ export default function App() {
       quality: 1,
     });
 
-    if (!result.canceled) {
-      setUri(result.uri);
+    if (!result.canceled && result.assets && result.assets.length > 0) {
+      setUri(result.assets[0].uri);
+      console.log("Image selected from gallery:", result.assets[0].uri); // Updated log statement
     }
   };
 
@@ -28,8 +29,9 @@ export default function App() {
         quality: 1,
       });
 
-      if (!result.canceled) {
-        setUri(result.uri);
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        setUri(result.assets[0].uri);
+        console.log("Image captured from camera:", result.assets[0].uri); // Updated log statement
       }
     } else {
       alert("Camera permission is required to use the camera.");
