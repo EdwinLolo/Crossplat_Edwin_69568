@@ -1,10 +1,14 @@
 import React, { useState } from "react";
-import { Button, View, Text, Image, Alert } from "react-native";
+import { Button, View, Text, Image, Alert, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
+import * as Location from "expo-location";
+import * as FileSystem from "expo-file-system";
 
 export default function App() {
   const [uri, setUri] = useState("");
+  const [locationData, setLocationData] = useState([]);
+  const [latestLocation, setLatestLocation] = useState(null);
 
   const openImagePicker = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -35,7 +39,10 @@ export default function App() {
         console.log("Image captured from camera:", result.assets[0].uri);
       }
     } else {
-      alert("Camera permission is required to use the camera.");
+      Alert.alert(
+        "Permission Denied",
+        "Camera permission is required to use the camera."
+      );
     }
   };
 
@@ -64,18 +71,107 @@ export default function App() {
     }
   };
 
+  const getLocation = async () => {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert(
+        "Permission Denied",
+        "Location permission is required to access your location."
+      );
+      return;
+    }
+
+    try {
+      const location = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.High,
+      });
+
+      const newLocation = {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        timestamp: new Date(location.timestamp).toISOString(),
+      };
+
+      setLocationData((prevData) => [...prevData, newLocation]);
+      setLatestLocation(newLocation);
+      Alert.alert(
+        "Location Retrieved",
+        `Lat: ${newLocation.latitude}, Lon: ${newLocation.longitude}`
+      );
+      console.log("Location:", newLocation);
+    } catch (error) {
+      Alert.alert("Error", "Failed to retrieve location.");
+      console.error(error);
+    }
+  };
+
+  const saveToFile = async () => {
+    if (locationData.length === 0) {
+      Alert.alert("No Data", "Please retrieve some location data first.");
+      return;
+    }
+
+    const fileContent = locationData
+      .map(
+        (loc, index) =>
+          `#${index + 1} - Latitude: ${loc.latitude}, Longitude: ${
+            loc.longitude
+          }, Timestamp: ${loc.timestamp}`
+      )
+      .join("\n");
+
+    const fileName = "location_data.txt";
+
+    try {
+      if (Platform.OS === "android") {
+        // Use Android Downloads directory
+        const downloadDir = FileSystem.documentDirectory;
+        const fileUri = `${downloadDir}${fileName}`;
+        await FileSystem.writeAsStringAsync(fileUri, fileContent);
+
+        // Display alert with file location
+        Alert.alert(
+          "File Saved",
+          `Location data saved in app's sandbox directory: ${fileUri}`
+        );
+        console.log("File saved to:", fileUri);
+      } else {
+        // For iOS (use similar documentDirectory for simplicity)
+        const fileUri = `${FileSystem.documentDirectory}${fileName}`;
+        await FileSystem.writeAsStringAsync(fileUri, fileContent);
+
+        Alert.alert("File Saved", `File saved at: ${fileUri}`);
+        console.log("File saved to:", fileUri);
+      }
+    } catch (error) {
+      Alert.alert("Error", "Failed to save file.");
+      console.error(error);
+    }
+  };
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Edwin Fedora Lolo - 00000069568</Text>
       <Button title="Open Gallery" onPress={openImagePicker} />
       <Button title="Open Camera" onPress={handleCameraLaunch} />
-      <Button title="Create File" onPress={saveImage} />
+      <Button title="Save Image" onPress={saveImage} />
       {uri ? (
         <Image
           source={{ uri }}
           style={{ width: 200, height: 200, marginTop: 20 }}
         />
       ) : null}
+      <Button title="Get Location" onPress={getLocation} />
+      <Button title="Save to File" onPress={saveToFile} />
+
+      {latestLocation && (
+        <Text style={{ marginTop: 20 }}>
+          Latest Location: {"\n"}
+          Latitude: {latestLocation.latitude} {"\n"}
+          Longitude: {latestLocation.longitude} {"\n"}
+          Timestamp: {latestLocation.timestamp}
+        </Text>
+      )}
     </View>
   );
 }
