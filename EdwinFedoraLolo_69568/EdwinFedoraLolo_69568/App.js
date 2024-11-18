@@ -123,26 +123,27 @@ export default function App() {
     const fileName = "location_data.txt";
 
     try {
+      // Minta izin akses ke penyimpanan eksternal di Android
       if (Platform.OS === "android") {
-        // Use Android Downloads directory
-        const downloadDir = FileSystem.documentDirectory;
-        const fileUri = `${downloadDir}${fileName}`;
-        await FileSystem.writeAsStringAsync(fileUri, fileContent);
-
-        // Display alert with file location
-        Alert.alert(
-          "File Saved",
-          `Location data saved in app's sandbox directory: ${fileUri}`
-        );
-        console.log("File saved to:", fileUri);
-      } else {
-        // For iOS (use similar documentDirectory for simplicity)
-        const fileUri = `${FileSystem.documentDirectory}${fileName}`;
-        await FileSystem.writeAsStringAsync(fileUri, fileContent);
-
-        Alert.alert("File Saved", `File saved at: ${fileUri}`);
-        console.log("File saved to:", fileUri);
+        const { status } = await MediaLibrary.requestPermissionsAsync();
+        if (status !== "granted") {
+          Alert.alert("Permission Denied", "Storage permission is required.");
+          return;
+        }
       }
+
+      // Tentukan lokasi file di penyimpanan eksternal Android (Download Directory)
+      const downloadDir = FileSystem.documentDirectory;
+      const fileUri = `${downloadDir}${fileName}`;
+
+      // Menyimpan file ke penyimpanan eksternal (gunakan MediaLibrary jika ingin)
+      await FileSystem.writeAsStringAsync(fileUri, fileContent, {
+        encoding: FileSystem.EncodingType.UTF8,
+      });
+
+      // Tampilkan alert dengan lokasi file
+      Alert.alert("File Saved", `File saved at: ${fileUri}`);
+      console.log("File saved to:", fileUri);
     } catch (error) {
       Alert.alert("Error", "Failed to save file.");
       console.error(error);
