@@ -1,14 +1,72 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, Alert, Image } from "react-native";
-import * as ImagePicker from "expo-image-picker";
-import * as MediaLibrary from "expo-media-library";
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Alert,
+  Image,
+  Platform,
+} from "react-native";
+import * as Notifications from "expo-notifications";
+import * as Device from "expo-device";
 import * as Location from "expo-location";
+import * as ImagePicker from "expo-image-picker";
 import { savePhotoUriAndLocationToFirestore } from "./firestoreFunctions";
-import { StatusBar } from "expo-status-bar";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Device.isDevice) {
+    const { status: existingStatus } =
+      await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+
+    if (finalStatus !== "granted") {
+      alert("Failed to get push token for push notification!");
+      return;
+    }
+
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log("Push Token:", token);
+  } else {
+    alert("Must use physical device for Push Notifications");
+  }
+
+  if (Platform.OS === "android") {
+    Notifications.setNotificationChannelAsync("default", {
+      name: "default",
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: "#FF231F7C",
+    });
+  }
+
+  return token;
+}
 
 const App = () => {
   const [uri, setUri] = useState("");
   const [location, setLocation] = useState(null);
+  const [expoPushToken, setExpoPushToken] = useState("");
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then((token) =>
+      setExpoPushToken(token ?? "")
+    );
+  }, []);
 
   const handleCameraLaunch = async () => {
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -61,7 +119,7 @@ const App = () => {
     }
   };
 
-  const saveToLocalAndFirestore = async () => {
+  const saveDataWithNotification = async () => {
     if (!uri) {
       Alert.alert(
         "No image selected",
@@ -70,19 +128,7 @@ const App = () => {
       return;
     }
 
-    const mediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
-    if (!mediaLibraryPermission.granted) {
-      Alert.alert(
-        "Permission required",
-        "You need to enable permission to save images to the gallery."
-      );
-      return;
-    }
-
     try {
-      const asset = await MediaLibrary.createAssetAsync(uri);
-      console.log("Image saved to Camera Roll:", asset.uri);
-
       const locationPermission =
         await Location.requestForegroundPermissionsAsync();
       if (!locationPermission.granted) {
@@ -97,16 +143,27 @@ const App = () => {
       };
       setLocation(locationData);
 
-      console.log("Location Data:", locationData);
+      await savePhotoUriAndLocationToFirestore(uri, locationData);
+      Alert.alert("Success", "Data saved successfully!");
 
-      await savePhotoUriAndLocationToFirestore(asset.uri, locationData);
-      Alert.alert(
-        "Success",
-        "Image and location saved to Firestore and device."
-      );
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Data Saved",
+          body: `Location: ${locationData.latitude}, ${locationData.longitude}`,
+          data: { uri },
+        },
+        trigger: null,
+      });
     } catch (error) {
       console.error("Error saving data:", error);
       Alert.alert("Error", "Failed to save data.");
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Error",
+          body: "Failed to save data.",
+        },
+        trigger: null,
+      });
     }
   };
 
@@ -124,22 +181,11 @@ const App = () => {
         <>
           <Image source={{ uri }} style={styles.image} />
           <Button
-            title="Save to Local and Firestore"
-            onPress={saveToLocalAndFirestore}
-            color="#1E90FF"
+            title="Save to Firestore"
+            onPress={saveDataWithNotification}
           />
         </>
-      ) : (
-        <Text>No image selected</Text>
-      )}
-
-      {location && (
-        <Text>
-          Location: {location.latitude}, {location.longitude}
-        </Text>
-      )}
-
-      <StatusBar style="auto" />
+      ) : null}
     </View>
   );
 };
@@ -149,14 +195,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
-    backgroundColor: "#fff",
+    padding: 16,
   },
   image: {
     width: 200,
     height: 200,
-    marginTop: 20,
-    borderRadius: 10,
+    marginVertical: 16,
   },
 });
 
